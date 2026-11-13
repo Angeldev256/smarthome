@@ -1,5 +1,5 @@
 # your real Wi-Fi password lives here – never commit it
-firmware/smart_estate/secrets.h
+firmware/smarthome/secrets.h
 build/
 *.bin
 *.elf

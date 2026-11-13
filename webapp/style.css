@@ -171,6 +171,10 @@ th, td { text-align: left; padding: 8px 10px; border-top: 1px solid var(--border
 th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); border-top: 0; }
 td.pin { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
 
+/* ---------- demo panel ---------- */
+#demoPanel { display: none; }
+body.mode-demo #demoPanel { display: block; }
+
 /* ---------- sliders, bars, swatches ---------- */
 .range { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
 .range input { flex: 1; accent-color: var(--accent); }
@@ -214,3 +218,4 @@ footer { margin-top: 32px; font-size: 13px; color: var(--muted); }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+#st-park { text-transform: none; }

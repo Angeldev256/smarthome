@@ -83,7 +83,24 @@
 
     // lights
     const on = LIGHT_KEYS.filter(k => s[k]).length;
-    $('#st-lights').innerHTML = on + '<small>/4</small>';
+
+    // sensors + security
+    const cm = v => (v == null || v < 0 ? '–' : v + ' cm');
+    $('#st-sec').textContent = s.alarm ? 'ALARM' : s.security ? 'Armed' : 'Off';
+    $('#st-sec-tile').classList.toggle('alert', !!s.alarm);
+    $('#st-park').textContent = s.car_garage ? cm(s.garage_cm) : 'Empty';
+    const park = s.car_garage && s.garage_cm > 0 ? Math.max(0, Math.min(100, 100 - (s.garage_cm - 5) * 10)) : 0;
+    $('#st-park-bar').style.width = park + '%';
+    $('#st-park-bar').style.background = s.car_garage && s.garage_cm > 0 && s.garage_cm < 5 ? 'var(--danger)' : '';
+    const tag = (id, text, cls) => { const t = $(id); t.textContent = text; t.className = 'tag' + (cls ? ' ' + cls : ''); };
+    tag('#tag-motion', s.motion ? 'Detected' : 'None', s.motion ? (s.security ? 'alert' : 'on') : '');
+    tag('#tag-cargate', s.car_gate ? 'Car ' + cm(s.gate_cm) : 'Clear', s.car_gate ? 'on' : '');
+    tag('#tag-garage', s.car_garage ? 'Parked ' + cm(s.garage_cm) : 'Empty', s.car_garage ? 'on' : '');
+    tag('#tag-alarm', s.alarm ? 'SOUNDING' : 'Quiet', s.alarm ? 'alert' : '');
+    $('#sub-cargate').textContent = s.gate_cm > 0 ? `Ultrasonic: ${s.gate_cm} cm` : 'Ultrasonic: nothing in range';
+    $('#sub-garage').textContent = s.garage_cm > 0 ? `Ultrasonic: ${s.garage_cm} cm to the wall` : 'Ultrasonic: nothing in range';
+    $('#alarmStop').hidden = !s.alarm;
+    $('#st-event').classList.toggle('alert', !!s.alarm);
 
     // strip
     const col = (s.strip_color || '#00FF60').toLowerCase();
@@ -94,7 +111,6 @@
     $('#stripBrightVal').textContent = (s.strip_brightness ?? '–') + '%';
 
     // speaker
-    $('#st-vol').innerHTML = (s.volume ?? '–') + '<small>/30</small>';
     if (dragging !== $('#volume')) $('#volume').value = s.volume ?? 20;
     $('#volumeVal').textContent = s.volume ?? '–';
 
@@ -103,6 +119,7 @@
     $('#lg-fan').textContent = fanText;
     $('#lg-strip').textContent = s.strip ? (s.strip_effect === 'status' ? 'steady' : s.strip_effect || 'on') : 'off';
     $('#lg-lights').textContent = on;
+    $('#lg-sec').textContent = s.alarm ? 'ALARM' : s.security ? 'armed' : 'off';
 
     if (s.event && s.event !== lastEvent) {
       lastEvent = s.event;
@@ -146,16 +163,29 @@
     blades.style.animation = sp ? `spin ${s.fan_breeze ? 0.8 : [0, 1.2, 0.6, 0.3][sp]}s linear infinite` : 'none';
     document.getElementById('m-fan-label').textContent = s.fan_breeze ? 'fan: breeze' : sp ? `fan speed ${sp}` : 'fan off';
 
+    // sensors
+    op('m-motion', s.motion ? 1 : 0);
+    op('m-car-gate', s.car_gate ? 1 : 0);
+    op('m-car-garage', s.car_garage ? 1 : 0);
+    op('m-sonar-beam', s.car_gate ? 0.6 : 0.25);
+    op('m-alarm', s.alarm ? 1 : 0);
+    document.getElementById('m-alarm').style.animation = s.alarm ? 'breathe .4s linear infinite' : 'none';
+    document.getElementById('m-gate-cm').textContent = s.gate_cm > 0 ? s.gate_cm + ' cm' : '';
+    document.getElementById('m-garage-cm').textContent = s.car_garage && s.garage_cm > 0 ? s.garage_cm + ' cm' : '';
+    // the parked car moves towards the back wall as the distance shrinks
+    const gy = s.garage_cm > 0 ? Math.max(0, Math.min(40, (s.garage_cm - 3) * 3)) : 0;
+    document.getElementById('m-car-garage').setAttribute('transform', `translate(0 ${gy})`);
+
     // RGB strip around the walls
     const strip = document.getElementById('m-strip');
     const fx = s.strip_effect;
-    strip.style.opacity = s.strip ? 0.35 + 0.65 * ((s.strip_brightness ?? 60) / 100) : 0;
-    strip.style.animation = !s.strip ? 'none'
+    strip.style.opacity = s.alarm ? 1 : s.strip ? 0.35 + 0.65 * ((s.strip_brightness ?? 60) / 100) : 0;
+    strip.style.animation = s.alarm ? 'breathe .3s linear infinite' : !s.strip ? 'none'
       : fx === 'rainbow' ? 'hue 4s linear infinite'
       : fx === 'party' ? 'hue .9s steps(4) infinite'
       : fx === 'breathe' ? 'breathe 2.6s ease-in-out infinite'
       : moving ? 'breathe .6s ease-in-out infinite' : 'none';
-    const c = fx === 'status' && moving ? '#ff7000'
+    const c = s.alarm ? '#ff0000' : fx === 'status' && moving ? '#ff7000'
       : fx === 'rainbow' || fx === 'party' ? '#ff0000' : (s.strip_color || '#00ff60');
     document.getElementById('m-strip-line').setAttribute('stroke', c);
     document.getElementById('m-strip-glow').setAttribute('stroke', c);
@@ -252,7 +282,9 @@
       gate: false, gate_state: 'closed', gate_pos: 0,
       strip: true, strip_color: '#00FF60', strip_effect: 'status', strip_brightness: 60,
       volume: 22, announce: true, event: 'Demo estate ready',
-      features: { speaker: true, strip: true, strip_type: 'analog', gate_motor: 'stepper', gate_degrees: 1080, alexa: true }
+      motion: false, security: false, alarm: false, auto: true,
+      car_gate: false, gate_cm: -1, car_garage: false, garage_cm: -1,
+      features: { speaker: 'voice', strip: true, gate_motor: 'stepper', gate_degrees: 1080, pir: true, sonar_gate: true, sonar_garage: true, alexa: true }
     };
     const last = { living: 100, bedroom: 100, garage_light: 100, outdoor: 100 };
     const NAMES = { living: 'Living room light', bedroom: 'Bedroom light', garage_light: 'Garage light', outdoor: 'Outdoor light' };
@@ -261,6 +293,9 @@
       aqua: '#00FFC0', gold: '#FFB000', magenta: '#FF00FF' };
     const FX = ['status', 'breathe', 'rainbow', 'party'];
     let gatePos = 0, gateTarget = 0, fanOffAt = 0, lastFan = 2, timer, lastTick = Date.now();
+    // sensor simulation (same rules as the firmware)
+    let outdoorOffAt = 0, motionEndsAt = 0, gateByCar = false, carLeftAt = 0, garageByCar = false, alarmEndsAt = 0;
+    let parkTarget = -1, carGateEndsAt = 0;
     const ev = m => { S.event = m; };
     const isNum = v => /^\d+$/.test(v);
     const parse = (v, cur) => {
@@ -294,10 +329,10 @@
     function scene(n) {
       n = n.replace(/[ _]/g, '');
       if (n === 'goodnight' || n === 'night') {
-        LIGHT_KEYS.forEach(k => setLight(k, 0)); setGate(false); setFan(1);
-        strip({ strip_effect: 'status', strip_color: '#0030FF', strip_brightness: 10 }); ev('Scene: good night');
+        LIGHT_KEYS.forEach(k => setLight(k, 0)); setGate(false); setFan(1); S.security = true;
+        strip({ strip_effect: 'status', strip_color: '#0030FF', strip_brightness: 10 }); ev('Scene: good night (security armed)');
       } else if (n === 'welcome' || n === 'welcomehome' || n === 'home') {
-        setGate(true); setLight('living', 100); setLight('outdoor', 100);
+        S.security = false; S.alarm = false; setGate(true); setLight('living', 100); setLight('outdoor', 100);
         strip({ strip_effect: 'status', strip_color: '#00FF60', strip_brightness: 60 }); ev('Scene: welcome home');
       } else if (n === 'party') {
         LIGHT_KEYS.forEach(k => setLight(k, last[k])); setFan(2);
@@ -321,6 +356,7 @@
         ev(on ? 'All lights ON' : 'All lights OFF'); return true;
       }
       if (device === 'gate') {
+        gateByCar = false;
         if (v === 'stop') { if (gateTarget !== gatePos) { gateTarget = gatePos; ev('Gate stopped'); } return true; }
         const on = parse(v, gateWantsOpen()); if (on == null) return false;
         setGate(on); return true;
@@ -371,6 +407,18 @@
       if (device === 'beep') { ev('Beep!'); return true; }
       if (device === 'doorbell') { ev('Ding dong! Someone is at the gate'); return true; }
       if (device === 'scene') { scene(v); return true; }
+      if (device === 'security') {
+        const on = parse(v === 'arm' ? 'on' : v === 'disarm' ? 'off' : v, S.security); if (on == null) return false;
+        S.security = on; if (!on) S.alarm = false; ev(on ? 'Security ARMED' : 'Security DISARMED'); return true;
+      }
+      if (device === 'alarm') {
+        const on = parse(v, S.alarm); if (on == null) return false;
+        S.alarm = on; alarmEndsAt = on ? Date.now() + 60000 : 0; ev(on ? 'ALARM! Intruder detected' : 'Alarm silenced'); return true;
+      }
+      if (device === 'auto') {
+        const on = parse(v, S.auto); if (on == null) return false;
+        S.auto = on; ev(on ? 'Automation ON' : 'Automation OFF'); return true;
+      }
       if (['goodnight', 'welcome', 'party'].includes(device)) {
         const on = parse(v, false);
         if (device === 'party' && on === false) { scene('normal'); return true; }
@@ -380,9 +428,47 @@
       return false;
     }
 
+    function sensor(key) {
+      const now = Date.now();
+      if (key === 'motion') {           // someone walks past for 4 s
+        S.motion = true; motionEndsAt = now + 4000; ev('Motion detected');
+        if (S.security) { S.alarm = true; alarmEndsAt = now + 60000; ev('ALARM! Intruder detected'); }
+        if (S.auto && !S.outdoor) { setLight('outdoor', 100); outdoorOffAt = now + 20000; }
+        else if (outdoorOffAt) outdoorOffAt = now + 20000;
+      }
+      if (key === 'car_gate') {         // a car waits at the gate for 6 s
+        S.car_gate = true; S.gate_cm = 8; carGateEndsAt = now + 6000; ev('Car at the gate');
+        if (S.security) ev('Security is on – gate stays closed');
+        else if (S.auto && !gateWantsOpen()) { gateTarget = 100; gateByCar = true; ev('Car at the gate – gate opening'); }
+      }
+      if (key === 'car_garage') {       // drive in (distance shrinks) or drive out
+        if (parkTarget < 0 && !S.car_garage) { parkTarget = 4; S.garage_cm = 40; }
+        else { parkTarget = -1; }
+      }
+    }
+
     function tick() {
       const now = Date.now(), dt = now - lastTick;
       lastTick = now;
+      // --- simulated sensors ---
+      if (S.motion && now >= motionEndsAt) S.motion = false;
+      if (outdoorOffAt && now >= outdoorOffAt && !S.motion) { outdoorOffAt = 0; setLight('outdoor', 0); }
+      if (S.alarm && alarmEndsAt && now >= alarmEndsAt) { S.alarm = false; ev('Alarm silenced'); }
+      if (S.car_gate && now >= carGateEndsAt) { S.car_gate = false; S.gate_cm = -1; carLeftAt = now; ev('Car has passed the gate'); }
+      if (gateByCar && !S.car_gate && carLeftAt && now - carLeftAt > 5000) { gateByCar = false; carLeftAt = 0; if (S.auto) setGate(false); }
+      if (parkTarget >= 0 && S.garage_cm > parkTarget) {
+        S.garage_cm = Math.max(parkTarget, S.garage_cm - dt / 120);
+        if (S.garage_cm === parkTarget) ev('Stop! The car is 4 cm from the wall');
+      }
+      if (parkTarget < 0 && S.garage_cm >= 0) { S.garage_cm += dt / 60; if (S.garage_cm > 40) S.garage_cm = -1; }
+      const gcm = S.garage_cm < 0 ? -1 : Math.round(S.garage_cm);
+      if (!S.car_garage && gcm > 0 && gcm < 15) {
+        S.car_garage = true; ev('Car parked in the garage');
+        if (S.auto && !S.garage_light) { setLight('garage_light', 100); garageByCar = true; }
+      } else if (S.car_garage && (gcm < 0 || gcm > 19)) {
+        S.car_garage = false; ev('Garage is empty');
+        if (garageByCar) { setLight('garage_light', 0); garageByCar = false; }
+      }
       // the gate takes ~12 s, like the stepper turning 1080° at 12 rpm
       if (gatePos !== gateTarget) {
         const step = dt / 120;
@@ -395,13 +481,14 @@
       S.gate = gateWantsOpen();
       if (fanOffAt && now >= fanOffAt) { setFan(0); ev('Fan timer finished – fan OFF'); }
       S.fan_timer = fanOffAt ? Math.ceil((fanOffAt - now) / 60000) : 0;
-      render({ ...S });
+      render({ ...S, garage_cm: S.garage_cm < 0 ? -1 : Math.round(S.garage_cm) });
     }
 
     return {
       start() { setConn('demo', 'Demo'); tick(); timer = setInterval(tick, 250); },
       stop() { clearInterval(timer); },
-      async send(device, value) { const ok = apply(device, value); tick(); return ok; }
+      async send(device, value) { const ok = apply(device, value); tick(); return ok; },
+      sensor(key) { sensor(key); tick(); }
     };
   }
 
@@ -446,6 +533,8 @@
   $$('input[data-dev]').forEach(inp => {
     inp.addEventListener('change', () => send(inp.dataset.dev, inp.checked ? 'on' : 'off'));
   });
+  $$('[data-sim]').forEach(btn => btn.addEventListener('click', () => transport.sensor && transport.sensor(btn.dataset.sim)));
+  $('#alarmStop').addEventListener('click', () => send('alarm', 'off'));
   $$('[data-cmd]').forEach(btn => {
     btn.addEventListener('click', () => { const [d, v] = btn.dataset.cmd.split(':'); send(d, v); });
   });
@@ -530,6 +619,17 @@
       return { say: `The gate is ${state.gate_state || 'closed'}. The fan is ${state.fan_speed ? 'on speed ' + state.fan_speed : 'off'}. ` +
         (on.length ? `Lights on: ${on.join(', ')}.` : 'All lights are off.') };
     }
+
+    // ---- security + sensors -----------------------------------------
+    if (/\b(alarm|siren)\b/.test(t) && /\b(stop|silence|off|quiet|disable)\b/.test(t)) return { cmds: [['alarm', 'off']], say: 'Alarm silenced.' };
+    if (/\bdisarm\b/.test(t) || (/security/.test(t) && OFF.test(t))) return { cmds: [['security', 'off']], say: 'Security off.' };
+    if (/\barm\b/.test(t) || (/security/.test(t) && (ON.test(t) || /\b(set|enable)\b/.test(t)))) return { cmds: [['security', 'on']], say: 'Security armed. Motion will sound the alarm.' };
+    if (/automation|automatic|auto mode|sensors/.test(t) && (ON.test(t) || OFF.test(t))) {
+      const off = OFF.test(t); return { cmds: [['auto', off ? 'off' : 'on']], say: off ? 'Automation off. Sensors only report.' : 'Automation on.' };
+    }
+    if (/\bcar\b/.test(t) && /garage|parked|park/.test(t)) return { say: state.car_garage ? `Yes, a car is parked, ${state.garage_cm} centimetres from the wall.` : 'No, the garage is empty.' };
+    if (/\bcar\b/.test(t) && /gate|waiting|outside/.test(t)) return { say: state.car_gate ? 'Yes, there is a car at the gate.' : 'No car at the gate.' };
+    if (/motion|anyone|anybody|someone outside/.test(t)) return { say: state.motion ? 'Yes, there is movement outside.' : 'No movement right now.' };
 
     // ---- speaker ----------------------------------------------------
     if (/volume|louder|quieter|softer|mute|speaker/.test(t)) {

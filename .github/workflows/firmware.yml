@@ -12,10 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check webapp.h is up to date
+      - name: Check the web page in smarthome.ino is up to date
         run: |
           python3 tools/build_webapp.py
-          git diff --exit-code firmware/smart_estate/webapp.h || (echo "Run: python3 tools/build_webapp.py and commit webapp.h" && exit 1)
+          git diff --exit-code firmware/smarthome/smarthome.ino || (echo "Run: python3 tools/build_webapp.py and commit smarthome.ino" && exit 1)
 
       - uses: arduino/compile-sketches@v1
         with:
@@ -24,10 +24,9 @@ jobs:
             - name: esp32:esp32
               source-url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
           sketch-paths: |
-            - firmware/smart_estate
+            - firmware/smarthome
           libraries: |
             - name: ArduinoJson
             - name: PubSubClient
             - name: Espalexa
             - name: Adafruit NeoPixel
-            - name: LiquidCrystal I2C

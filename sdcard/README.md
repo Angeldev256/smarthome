@@ -11,10 +11,11 @@ SD card
     └── …
 ```
 
-The estate speaks these clips by number. You can replace any of them with your own recording (same file name, MP3),
+The estate plays these clips by number. You can replace any of them with your own recording (same file name, MP3),
 or change the words in `tools/make_voice_clips.py` and run it again.
+Using a plain speaker instead (`SPEAKER_TYPE SPEAKER_TONE`)? Then you don't need the SD card: each clip becomes a beep or tune.
 
-| File | Name (for `say=`) | Words |
+| File | Name (for `say`) | Sound |
 |---|---|---|
 | `0001.mp3` | `online` | Smart estate is online. |
 | `0002.mp3` | `gate_opening` | Gate opening. |
@@ -46,6 +47,15 @@ or change the words in `tools/make_voice_clips.py` and run it again.
 | `0028.mp3` | `beep` | short beep |
 | `0029.mp3` | `gate_open` | The gate is open. |
 | `0030.mp3` | `gate_closed` | The gate is closed. |
+| `0031.mp3` | `alarm` | 🚨 siren with “Intruder alert!” (5 s, repeats) |
+| `0032.mp3` | `motion` | Motion detected. |
+| `0033.mp3` | `security_on` | Security on. |
+| `0034.mp3` | `security_off` | Security off. |
+| `0035.mp3` | `car_gate` | Car at the gate. Opening. |
+| `0036.mp3` | `car_parked` | Car parked. |
+| `0037.mp3` | `stop` | Stop! Stop! |
+| `0038.mp3` | `alarm_off` | Alarm off. |
+| `0039.mp3` | `security_hold` | Security is on. The gate stays closed. |
 
 Test it from the Serial Monitor: type `say hello` and press Enter.
 No sound? Check the speaker is on **SPK1 / SPK2** (not GND), the 1 kΩ resistor is between GPIO 4 and the DFPlayer **RX** pin, and the card is FAT32.

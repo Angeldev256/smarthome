@@ -20,7 +20,7 @@ Your Echo finds it on your Wi-Fi by itself.
 1. The Echo / Alexa app and the ESP32 must be on the **same Wi-Fi** (2.4 GHz).
 2. Power the estate and wait for the RGB strip to stop blinking blue.
 3. Say **"Alexa, discover devices"** (or Alexa app → Devices → + → Add device → Other → Discover).
-4. Nine devices appear:
+4. Ten devices appear:
 
 | Alexa device | What you can say |
 |---|---|
@@ -32,7 +32,8 @@ Your Echo finds it on your Wi-Fi by itself.
 | Gate | "turn on Gate" = **open**, "turn off Gate" = **close** |
 | Strip Light | "set Strip Light to purple", "set Strip Light to 50%", "turn off Strip Light" |
 | Party Mode | "turn on Party Mode" (all lights, party strip, fan), "turn off Party Mode" |
-| Good Night | "turn on Good Night" (lights off, gate closed, fan low, dim blue strip) |
+| Good Night | "turn on Good Night" (lights off, gate closed, fan low, dim blue strip, security armed) |
+| Security | "turn on Security" = arm (motion sounds the alarm), "turn off Security" = disarm + silence |
 
 ### Nicer phrases with Alexa Routines
 Alexa app → More → Routines → +:
@@ -65,8 +66,12 @@ On the ESP32's own page (`http://…`) type the same words in the box under the 
 | "volume up" / "volume 15" / "mute the speaker" | speaker |
 | "ring the doorbell" | ding-dong + white flash |
 | "party mode" / "party off" | party scene |
-| "good night" | lights off, gate closed, fan low, dim blue strip |
-| "I'm home" | gate opens, living room + outdoor lights on |
+| "arm security" / "disarm security" | security mode |
+| "stop the alarm" | silence the siren |
+| "turn off automation" | sensors only report, they don't switch anything |
+| "is there a car in the garage?" / "is there a car at the gate?" / "is anyone outside?" | spoken answer from the sensors |
+| "good night" | lights off, gate closed, fan low, dim blue strip, security armed |
+| "I'm home" | security off, gate opens, living room + outdoor lights on |
 | "status" | the app tells you what is on |
 
 The app answers out loud using the browser's text-to-speech, and the model's own speaker announces the change too.
@@ -90,6 +95,9 @@ Format: `device value`, e.g. `gate open`, `living 50`, `strip #ff8800`.
 | `announce` | `on`, `off` (speak every change) |
 | `say` | a clip name, e.g. `hello`, `welcome` (see `sdcard/README.md`) |
 | `doorbell` | anything |
+| `security` | `on`, `off`, `toggle` (armed = motion sounds the alarm) |
+| `alarm` | `off` (silence), `on` (test) |
+| `auto` | `on`, `off` (sensors allowed to switch lights and the gate) |
 | `scene` | `welcome`, `goodnight`, `party`, `normal` |
 
 Type `state` in the Serial Monitor to see everything as JSON.

@@ -5,7 +5,7 @@ Make the spoken MP3 clips for the DFPlayer Mini speaker.
     python3 tools/make_voice_clips.py
 
 Writes sdcard/mp3/0001.mp3, 0002.mp3 ... The NUMBER of each clip must
-match the Track list in firmware/smart_estate/smart_estate.ino, so only
+match the Track list in firmware/smarthome/smarthome.ino, so only
 change the TEXT below (or record your own voice and save it under the
 same file name).
 
@@ -53,6 +53,15 @@ TRACKS = [
     (28, "beep", "BEEP"),
     (29, "gate_open", "The gate is open."),
     (30, "gate_closed", "The gate is closed."),
+    (31, "alarm", "SIREN Intruder alert!"),
+    (32, "motion", "Motion detected."),
+    (33, "security_on", "Security on."),
+    (34, "security_off", "Security off."),
+    (35, "car_gate", "Car at the gate. Opening."),
+    (36, "car_parked", "Car parked."),
+    (37, "stop", "Stop! Stop!"),
+    (38, "alarm_off", "Alarm off."),
+    (39, "security_hold", "Security is on. The gate stays closed."),
 ]
 
 ENC = ["-ar", "44100", "-ac", "1", "-c:a", "libmp3lame", "-b:a", "128k", "-map_metadata", "-1"]
@@ -80,6 +89,13 @@ def main():
         if words == "BEEP":
             ffmpeg(["-f", "lavfi", "-i", "sine=frequency=1200:duration=0.18",
                     "-af", "afade=t=out:st=0.12:d=0.06,volume=0.6"], out)
+        elif words.startswith("SIREN"):
+            # 5 s: siren sweep with the words on top, so it can repeat every 5.2 s
+            text = words[len("SIREN"):].strip()
+            ffmpeg(["-f", "lavfi", "-i", "aevalsrc='0.45*sin(2*PI*900*t-200*cos(2*PI*1.5*t))':s=44100:d=5",
+                    *speech_input(text),
+                    "-filter_complex",
+                    f"[1]aresample=44100,{loud},adelay=300|300,apad[v];[0][v]amix=inputs=2:duration=first:normalize=0"], out)
         elif words.startswith("CHIME"):
             text = words[len("CHIME"):].strip()
             ffmpeg(["-f", "lavfi", "-i", "sine=frequency=659:duration=0.7",

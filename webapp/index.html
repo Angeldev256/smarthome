@@ -32,7 +32,7 @@
   <!-- ================= HERO: live map + status ================= -->
   <section class="hero">
     <div class="card map-card">
-      <svg id="estate" viewBox="0 0 600 420" role="img" aria-label="Live map of the estate">
+      <svg id="estate" viewBox="0 0 600 470" role="img" aria-label="Live map of the estate">
         <defs>
           <pattern id="brick" width="16" height="8" patternUnits="userSpaceOnUse">
             <rect width="16" height="8" fill="#a5432f"/>
@@ -42,7 +42,10 @@
           <filter id="stripBlur" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="4"/></filter>
         </defs>
         <!-- grass -->
-        <rect x="0" y="0" width="600" height="420" fill="var(--grass)"/>
+        <rect x="0" y="0" width="600" height="470" fill="var(--grass)"/>
+        <!-- public road outside the gate -->
+        <rect x="0" y="420" width="600" height="50" fill="var(--road)"/>
+        <path d="M10 445H590" stroke="#fff" stroke-width="2" stroke-dasharray="14 12" opacity=".6"/>
 
         <!-- boundary walls (open at the gate) -->
         <rect x="20" y="20" width="560" height="14" fill="url(#brick)"/>
@@ -68,6 +71,10 @@
           <text x="300" y="92" text-anchor="middle" font-size="13" font-weight="700" fill="#3b2a17">GARAGE</text>
           <text x="300" y="108" text-anchor="middle" font-size="10" fill="#3b2a17">ESP32 control box</text>
           <rect x="245" y="148" width="110" height="12" fill="#6e5234"/>
+          <!-- ultrasonic sensor on the back wall + parked car -->
+          <g transform="translate(262 62)"><rect x="-10" y="-5" width="20" height="9" rx="2" fill="#2f6fe0"/><circle cx="-5" r="3" fill="#cfd8dc"/><circle cx="5" r="3" fill="#cfd8dc"/></g>
+          <g id="m-car-garage" opacity="0"><rect x="275" y="70" width="50" height="70" rx="10" fill="#2f6fe0"/><rect x="282" y="80" width="36" height="14" rx="4" fill="#cfe0ff"/></g>
+          <text id="m-garage-cm" x="276" y="66" font-size="10" font-weight="700" fill="#3b2a17"></text>
           <!-- speaker -->
           <g id="m-speaker" transform="translate(338 128)">
             <path d="M-6-5h5l7-6v22l-7-6h-5z" fill="#2a332d"/>
@@ -113,13 +120,31 @@
         <!-- gate (two leaves, motor-driven) -->
         <g id="m-gate-l"><rect x="245" y="386" width="55" height="8" fill="#8a6a45"/></g>
         <g id="m-gate-r"><rect x="300" y="386" width="55" height="8" fill="#8a6a45"/></g>
-        <text id="m-gate-label" x="300" y="414" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">CLOSED</text>
+        <text id="m-gate-label" x="300" y="378" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">CLOSED</text>
+
+        <!-- ultrasonic sensor on the gate pillar, looking at the road -->
+        <g transform="translate(372 404)"><rect x="-10" y="-5" width="20" height="9" rx="2" fill="#2f6fe0"/><circle cx="-5" r="3" fill="#cfd8dc"/><circle cx="5" r="3" fill="#cfd8dc"/></g>
+        <path id="m-sonar-beam" d="M372 410L340 440H404Z" fill="#7fc4ff" opacity=".25"/>
+        <text id="m-gate-cm" x="420" y="414" font-size="10" font-weight="700" fill="#fff"></text>
+        <g id="m-car-gate" opacity="0"><rect x="268" y="426" width="64" height="34" rx="9" fill="#e04f2f"/><rect x="306" y="431" width="16" height="24" rx="3" fill="#ffd9cf"/></g>
+
+        <!-- PIR motion sensor in the compound -->
+        <g id="m-motion" opacity="0">
+          <circle cx="540" cy="270" r="12" fill="none" stroke="#ff6b63" stroke-width="3"/>
+          <circle cx="540" cy="270" r="24" fill="none" stroke="#ff6b63" stroke-width="2" opacity=".6"/>
+        </g>
+        <circle cx="540" cy="270" r="6" fill="#fff" stroke="#555"/>
+        <text x="540" y="294" text-anchor="middle" font-size="10" fill="#e7f5ec">PIR</text>
+
+        <!-- alarm -->
+        <rect id="m-alarm" x="3" y="3" width="594" height="464" fill="none" stroke="#ff3b30" stroke-width="8" opacity="0"/>
       </svg>
       <div class="map-legend">
         <span>Gate: <b id="lg-gate">–</b></span>
         <span>Fan: <b id="lg-fan">–</b></span>
         <span>Strip: <b id="lg-strip">–</b></span>
         <span>Lights on: <b id="lg-lights">–</b></span>
+        <span>Security: <b id="lg-sec">–</b></span>
       </div>
     </div>
 
@@ -128,10 +153,11 @@
       <div class="stats">
         <div class="stat"><div class="label">Gate</div><div class="value" id="st-gate">–</div><div class="bar"><span id="st-gate-bar"></span></div></div>
         <div class="stat"><div class="label">Fan</div><div class="value" id="st-fan">–</div></div>
-        <div class="stat"><div class="label">Lights on</div><div class="value" id="st-lights">–<small>/4</small></div></div>
-        <div class="stat"><div class="label">Speaker volume</div><div class="value" id="st-vol">–<small>/30</small></div></div>
+        <div class="stat" id="st-sec-tile"><div class="label">Security</div><div class="value" id="st-sec">–</div></div>
+        <div class="stat"><div class="label">Garage parking</div><div class="value" id="st-park">–</div><div class="bar"><span id="st-park-bar"></span></div></div>
       </div>
       <div class="event" id="st-event">Waiting for the estate…</div>
+      <div class="btn-row"><button class="btn danger" id="alarmStop" hidden>Silence alarm</button></div>
       <h2 style="margin-top:16px">Scenes</h2>
       <div class="btn-row" style="margin-top:0">
         <button class="btn" data-cmd="scene:welcome">🏠 Welcome home</button>
@@ -198,6 +224,26 @@
     </div>
 
     <div class="card">
+      <h2>Sensors &amp; security</h2>
+      <div class="row"><div class="name">Security mode<div class="sub">Motion sounds the alarm</div></div><label class="switch"><input type="checkbox" data-dev="security" aria-label="Security mode"><span></span></label></div>
+      <div class="row"><div class="name">Automation<div class="sub">Sensors may switch things</div></div><label class="switch"><input type="checkbox" data-dev="auto" aria-label="Automation"><span></span></label></div>
+      <div class="row"><div class="name">Motion (PIR)<div class="sub">Outdoor light on for 20 s</div></div><span class="tag" id="tag-motion">–</span></div>
+      <div class="row"><div class="name">Car at the gate<div class="sub" id="sub-cargate">Ultrasonic sensor</div></div><span class="tag" id="tag-cargate">–</span></div>
+      <div class="row"><div class="name">Garage parking<div class="sub" id="sub-garage">Ultrasonic sensor</div></div><span class="tag" id="tag-garage">–</span></div>
+      <div class="row"><div class="name">Alarm</div><span class="tag" id="tag-alarm">Quiet</span></div>
+    </div>
+
+    <div class="card" id="demoPanel">
+      <h2>Simulator (no hardware)</h2>
+      <p class="small muted" style="margin:0">Fake the sensors to see the automation work, just like the real firmware.</p>
+      <div class="btn-row">
+        <button class="btn" data-sim="motion">🚶 Motion</button>
+        <button class="btn" data-sim="car_gate">🚗 Car at gate</button>
+        <button class="btn" data-sim="car_garage">🅿 Park in garage</button>
+      </div>
+    </div>
+
+    <div class="card">
       <h2>Speaker</h2>
       <div class="range" style="margin-top:0"><span class="small">Volume</span><input type="range" id="volume" min="0" max="30" aria-label="Speaker volume"><b class="small" id="volumeVal">–</b></div>
       <div class="row"><div class="name">Announcements<div class="sub">Says every change, e.g. “Gate opening”</div></div><label class="switch"><input type="checkbox" data-dev="announce" aria-label="Announcements"><span></span></label></div>
@@ -229,6 +275,7 @@
       <ul class="phrases">
         <li>Lights: <code>turn on the living room light</code>, <code>dim the bedroom to 30 percent</code>, <code>all lights off</code></li>
         <li>Gate &amp; fan: <code>open the gate</code>, <code>stop the gate</code>, <code>fan speed 3</code>, <code>fan breeze</code>, <code>turn off the fan in 10 minutes</code></li>
+        <li>Security: <code>arm security</code>, <code>disarm security</code>, <code>stop the alarm</code>, <code>is there a car in the garage</code></li>
         <li>Strip &amp; speaker: <code>strip red</code>, <code>rainbow</code>, <code>party mode</code>, <code>volume up</code>, <code>ring the doorbell</code>, <code>good night</code></li>
         <li>Alexa (after “Alexa, discover devices”): <code>Alexa, turn on Gate</code>, <code>Alexa, set Fan to 100%</code>, <code>Alexa, set Strip Light to blue</code>, <code>Alexa, turn on Good Night</code></li>
       </ul>
@@ -247,6 +294,7 @@
     <figure><img src="img/estate-model.jpg" alt="Cardboard estate model with two houses, garage, driveway, gate and clotheslines" loading="lazy" onerror="this.parentElement.hidden=true"><figcaption>The estate: living-room house, bedroom house, garage (control box), driveway and the motor gate.</figcaption></figure>
     <figure><img src="img/blueprint-layout.svg" alt="Top-down blueprint of the estate showing where each part goes and how the wires run" loading="lazy" onerror="this.parentElement.hidden=true"><figcaption>Blueprint: where every part goes and how the wires run to the garage.</figcaption></figure>
     <figure><img src="img/blueprint-wiring.svg" alt="Simplified wiring diagram from the ESP32 to every part" loading="lazy" onerror="this.parentElement.hidden=true"><figcaption>Simplified wiring: power rails and one signal wire per part.</figcaption></figure>
+    <figure><img src="img/blueprint-alternatives.svg" alt="Wiring alternatives: DC motor drivers, servo, speakers, LED power, real bulb, fan" loading="lazy" onerror="this.parentElement.hidden=true"><figcaption>Alternatives: DC motor, servo, big or small speaker, LED power, real bulb.</figcaption></figure>
   </div>
 
   <div class="card" style="margin-top:16px">
@@ -262,6 +310,9 @@
           <tr><td>Speaker – DFPlayer Mini RX</td><td class="pin">GPIO 4</td><td>Spoken announcements</td></tr>
           <tr><td>Buttons – Lights / Gate / Fan</td><td class="pin">GPIO 5 / 15 / 12</td><td>Manual control (button to GND)</td></tr>
           <tr><td>BOOT button on the ESP32</td><td class="pin">GPIO 0</td><td>Next strip effect</td></tr>
+          <tr><td>Ultrasonic – gate (TRIG / ECHO)</td><td class="pin">GPIO 21 / 34</td><td>Car at the gate → gate opens</td></tr>
+          <tr><td>Ultrasonic – garage (TRIG / ECHO)</td><td class="pin">GPIO 22 / 35</td><td>Parking helper, garage light</td></tr>
+          <tr><td>PIR motion sensor</td><td class="pin">GPIO 36</td><td>Outdoor light, intruder alarm</td></tr>
         </tbody>
       </table>
     </div>

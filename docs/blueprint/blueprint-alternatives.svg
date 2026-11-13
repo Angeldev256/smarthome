@@ -1,0 +1,412 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1618" width="1400" height="1618" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<title>Smart Estate – wiring alternatives</title>
+<defs><pattern id="g" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#2b5c95" stroke-width=".6"/></pattern></defs>
+<rect width="1400" height="1618" fill="#163f70"/>
+<rect x="20" y="20" width="1360" height="1578" fill="url(#g)" stroke="#ffffff" stroke-width="2"/>
+<text x="44" y="58" font-size="24" fill="#ffffff" font-weight="700" text-anchor="start">SMART ESTATE · ALTERNATIVES</text>
+<text x="44" y="82" font-size="13" fill="#cfe2ff" font-weight="400" text-anchor="start">Use what you have. Each option shows the wires and the one line to change at the top of smarthome.ino. Green frame = what the code does now.</text>
+<text x="44" y="124" font-size="16" fill="#ffd34d" font-weight="700" text-anchor="start">GATE MOTOR – choose one</text>
+<rect x="44" y="138" width="430" height="278" rx="8" fill="#0f2f57" stroke="#4dff88" stroke-width="2.5"/>
+<circle cx="64" cy="160" r="12" fill="#7ee0ff"/>
+<text x="64" y="164.5" font-size="13" fill="#0f2f57" font-weight="800" text-anchor="middle">A</text>
+<text x="84" y="165" font-size="14.5" fill="#ffffff" font-weight="700" text-anchor="start">Stepper 28BYJ-48 + ULN2003</text>
+<text x="462" y="164" font-size="10.5" fill="#4dff88" font-weight="700" text-anchor="end">IN THE CODE NOW</text>
+<rect x="176" y="186" width="118" height="126" rx="5" fill="#0b2442" stroke="#7ee0ff" stroke-width="2"/>
+<text x="235.0" y="201" font-size="11.5" fill="#ffffff" font-weight="700" text-anchor="middle">ULN2003 board</text>
+<rect x="58" y="210" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="89" y="224" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 13</text>
+<path d="M120 220 L176 220" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="182" y="224" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">IN1</text>
+<rect x="58" y="236" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="89" y="250" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 14</text>
+<path d="M120 246 L176 246" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="182" y="250" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">IN2</text>
+<rect x="58" y="262" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="89" y="276" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 27</text>
+<path d="M120 272 L176 272" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="182" y="276" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">IN3</text>
+<rect x="58" y="288" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="89" y="302" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 26</text>
+<path d="M120 298 L176 298" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="182" y="302" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">IN4</text>
+<text x="288" y="224" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">plug</text>
+<path d="M294 220 L316 220" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="322" y="224" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">28BYJ-48 motor</text>
+<rect x="176" y="318" width="30" height="20" rx="10" fill="#ffa94d" stroke="#ffffff" stroke-width="1.2"/>
+<text x="191.0" y="332" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">5V</text>
+<rect x="212" y="318" width="38" height="20" rx="10" fill="#111111" stroke="#ffffff" stroke-width="1.2"/>
+<text x="231.0" y="332" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GND</text>
+<rect x="56" y="344" width="406" height="20" rx="4" fill="#0b2442"/>
+<text x="62" y="358" font-size="11" fill="#4dff88" font-weight="600" text-anchor="start">#define GATE_MOTOR GATE_STEPPER</text>
+<text x="58" y="380" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">Exact angle: GATE_TURN_DEGREES = 1080 (3 turns).</text>
+<text x="58" y="397" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">Quiet and strong enough for a cardboard gate.</text>
+<rect x="490" y="138" width="430" height="278" rx="8" fill="#0f2f57" stroke="#ffffff" stroke-width="1.3"/>
+<circle cx="510" cy="160" r="12" fill="#7ee0ff"/>
+<text x="510" y="164.5" font-size="13" fill="#0f2f57" font-weight="800" text-anchor="middle">B</text>
+<text x="530" y="165" font-size="14.5" fill="#ffffff" font-weight="700" text-anchor="start">DC motor + L298N</text>
+<rect x="622" y="186" width="118" height="74" rx="5" fill="#0b2442" stroke="#7ee0ff" stroke-width="2"/>
+<text x="681.0" y="201" font-size="11.5" fill="#ffffff" font-weight="700" text-anchor="middle">L298N</text>
+<rect x="504" y="210" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="535" y="224" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 13</text>
+<path d="M566 220 L622 220" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="628" y="224" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">IN1</text>
+<rect x="504" y="236" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="535" y="250" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 14</text>
+<path d="M566 246 L622 246" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="628" y="250" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">IN2</text>
+<text x="734" y="224" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">OUT1</text>
+<path d="M740 220 L762 220" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="768" y="224" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">DC motor +</text>
+<text x="734" y="250" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">OUT2</text>
+<path d="M740 246 L762 246" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="768" y="250" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">DC motor −</text>
+<rect x="622" y="266" width="38" height="20" rx="10" fill="#ff5c5c" stroke="#ffffff" stroke-width="1.2"/>
+<text x="641.0" y="280" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">12V</text>
+<rect x="666" y="266" width="38" height="20" rx="10" fill="#111111" stroke="#ffffff" stroke-width="1.2"/>
+<text x="685.0" y="280" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GND</text>
+<rect x="502" y="292" width="406" height="20" rx="4" fill="#0b2442"/>
+<text x="508" y="306" font-size="11" fill="#4dff88" font-weight="600" text-anchor="start">#define GATE_MOTOR GATE_DC</text>
+<text x="504" y="328" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">Leave the ENA jumper ON. 12 V in, or 5 V for a 5 V motor.</text>
+<text x="504" y="345" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">GATE_DC_RUN_MS = time to open (e.g. 4000).</text>
+<rect x="936" y="138" width="430" height="278" rx="8" fill="#0f2f57" stroke="#ffffff" stroke-width="1.3"/>
+<circle cx="956" cy="160" r="12" fill="#7ee0ff"/>
+<text x="956" y="164.5" font-size="13" fill="#0f2f57" font-weight="800" text-anchor="middle">C</text>
+<text x="976" y="165" font-size="14.5" fill="#ffffff" font-weight="700" text-anchor="start">DC motor + L9110S (small)</text>
+<rect x="1068" y="186" width="118" height="74" rx="5" fill="#0b2442" stroke="#7ee0ff" stroke-width="2"/>
+<text x="1127.0" y="201" font-size="11.5" fill="#ffffff" font-weight="700" text-anchor="middle">L9110S</text>
+<rect x="950" y="210" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="981" y="224" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 13</text>
+<path d="M1012 220 L1068 220" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1074" y="224" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">A-IA</text>
+<rect x="950" y="236" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="981" y="250" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 14</text>
+<path d="M1012 246 L1068 246" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1074" y="250" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">A-IB</text>
+<text x="1180" y="224" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">MOTOR A</text>
+<path d="M1186 220 L1208 220" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1214" y="224" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">DC motor 3–6 V</text>
+<rect x="1068" y="266" width="30" height="20" rx="10" fill="#ffa94d" stroke="#ffffff" stroke-width="1.2"/>
+<text x="1083.0" y="280" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">5V</text>
+<rect x="1104" y="266" width="38" height="20" rx="10" fill="#111111" stroke="#ffffff" stroke-width="1.2"/>
+<text x="1123.0" y="280" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GND</text>
+<rect x="948" y="292" width="406" height="20" rx="4" fill="#0b2442"/>
+<text x="954" y="306" font-size="11" fill="#4dff88" font-weight="600" text-anchor="start">#define GATE_MOTOR GATE_DC</text>
+<text x="950" y="328" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">Tiny board, 2.5–12 V, up to 0.8 A.</text>
+<text x="950" y="345" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">L293D or TB6612 work the same (IN1/IN2).</text>
+<rect x="44" y="432" width="430" height="226" rx="8" fill="#0f2f57" stroke="#ffffff" stroke-width="1.3"/>
+<circle cx="64" cy="454" r="12" fill="#7ee0ff"/>
+<text x="64" y="458.5" font-size="13" fill="#0f2f57" font-weight="800" text-anchor="middle">D</text>
+<text x="84" y="459" font-size="14.5" fill="#ffffff" font-weight="700" text-anchor="start">DC motor + 2 relay modules</text>
+<rect x="176" y="480" width="118" height="74" rx="5" fill="#0b2442" stroke="#7ee0ff" stroke-width="2"/>
+<text x="235.0" y="495" font-size="11.5" fill="#ffffff" font-weight="700" text-anchor="middle">2-ch relay</text>
+<rect x="58" y="504" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="89" y="518" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 13</text>
+<path d="M120 514 L176 514" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="182" y="518" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">relay 1 IN</text>
+<rect x="58" y="530" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="89" y="544" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 14</text>
+<path d="M120 540 L176 540" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="182" y="544" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">relay 2 IN</text>
+<text x="288" y="518" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">COM1</text>
+<path d="M294 514 L316 514" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="322" y="518" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">motor wire 1</text>
+<text x="288" y="544" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">COM2</text>
+<path d="M294 540 L316 540" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="322" y="544" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">motor wire 2</text>
+<rect x="176" y="560" width="30" height="20" rx="10" fill="#ffa94d" stroke="#ffffff" stroke-width="1.2"/>
+<text x="191.0" y="574" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">5V</text>
+<rect x="212" y="560" width="38" height="20" rx="10" fill="#111111" stroke="#ffffff" stroke-width="1.2"/>
+<text x="231.0" y="574" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GND</text>
+<rect x="56" y="586" width="406" height="20" rx="4" fill="#0b2442"/>
+<text x="62" y="600" font-size="11" fill="#4dff88" font-weight="600" text-anchor="start">GATE_DC + GATE_DC_ACTIVE_LOW 1</text>
+<text x="58" y="622" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">Both NC → GND, both NO → motor supply (+).</text>
+<text x="58" y="639" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">Relay 1 on = open, relay 2 on = close.</text>
+<rect x="490" y="432" width="430" height="226" rx="8" fill="#0f2f57" stroke="#ffffff" stroke-width="1.3"/>
+<circle cx="510" cy="454" r="12" fill="#7ee0ff"/>
+<text x="510" y="458.5" font-size="13" fill="#0f2f57" font-weight="800" text-anchor="middle">E</text>
+<text x="530" y="459" font-size="14.5" fill="#ffffff" font-weight="700" text-anchor="start">Servo (SG90 / MG90S / MG996R)</text>
+<rect x="622" y="480" width="118" height="74" rx="5" fill="#0b2442" stroke="#7ee0ff" stroke-width="2"/>
+<text x="681.0" y="495" font-size="11.5" fill="#ffffff" font-weight="700" text-anchor="middle">Servo</text>
+<rect x="504" y="504" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="535" y="518" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 13</text>
+<path d="M566 514 L622 514" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="628" y="518" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">signal (orange)</text>
+<text x="734" y="518" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">horn</text>
+<path d="M740 514 L762 514" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="768" y="518" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">gate leaf on horn</text>
+<rect x="622" y="560" width="30" height="20" rx="10" fill="#ffa94d" stroke="#ffffff" stroke-width="1.2"/>
+<text x="637.0" y="574" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">5V</text>
+<rect x="658" y="560" width="38" height="20" rx="10" fill="#111111" stroke="#ffffff" stroke-width="1.2"/>
+<text x="677.0" y="574" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GND</text>
+<rect x="502" y="586" width="406" height="20" rx="4" fill="#0b2442"/>
+<text x="508" y="600" font-size="11" fill="#4dff88" font-weight="600" text-anchor="start">#define GATE_MOTOR GATE_SERVO</text>
+<text x="504" y="622" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">Swings 0–180°: GATE_SERVO_OPEN_DEG = 90.</text>
+<text x="504" y="639" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">Big MG996R: give it its own 5 V 2 A supply.</text>
+<rect x="936" y="432" width="430" height="226" rx="8" fill="#0f2f57" stroke="#ffffff" stroke-width="1.3"/>
+<circle cx="956" cy="454" r="12" fill="#7ee0ff"/>
+<text x="956" y="458.5" font-size="13" fill="#0f2f57" font-weight="800" text-anchor="middle">F</text>
+<text x="976" y="459" font-size="14.5" fill="#ffffff" font-weight="700" text-anchor="start">End switches for a DC motor (optional)</text>
+<rect x="1068" y="480" width="118" height="74" rx="5" fill="#0b2442" stroke="#7ee0ff" stroke-width="2"/>
+<text x="1127.0" y="495" font-size="11.5" fill="#ffffff" font-weight="700" text-anchor="middle">Micro switches</text>
+<rect x="950" y="504" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="981" y="518" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 2</text>
+<path d="M1012 514 L1068 514" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1074" y="518" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">closed switch</text>
+<rect x="950" y="530" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="981" y="544" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 39</text>
+<path d="M1012 540 L1068 540" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="1022" y="534" width="34" height="12" rx="2" fill="#0f2f57" stroke="#ffffff" stroke-width="1.5"/>
+<text x="1039" y="531" font-size="9.5" fill="#cfe2ff" font-weight="600" text-anchor="middle">10k↑</text>
+<text x="1074" y="544" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">open switch</text>
+<text x="1180" y="518" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">C/NO</text>
+<path d="M1186 514 L1208 514" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1214" y="518" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">hit by the gate</text>
+<rect x="1068" y="560" width="38" height="20" rx="10" fill="#111111" stroke="#ffffff" stroke-width="1.2"/>
+<text x="1087.0" y="574" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GND</text>
+<rect x="948" y="586" width="406" height="20" rx="4" fill="#0b2442"/>
+<text x="954" y="600" font-size="11" fill="#4dff88" font-weight="600" text-anchor="start">PIN_LIMIT_CLOSED 2 · PIN_LIMIT_OPEN 39</text>
+<text x="950" y="622" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">Motor stops exactly when the gate hits a switch.</text>
+<text x="950" y="639" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">GPIO 39 needs a 10 kΩ resistor to 3V3.</text>
+<text x="44" y="688" font-size="16" fill="#ffd34d" font-weight="700" text-anchor="start">SPEAKER – small or big</text>
+<rect x="44" y="702" width="430" height="252" rx="8" fill="#0f2f57" stroke="#4dff88" stroke-width="2.5"/>
+<circle cx="64" cy="724" r="12" fill="#7ee0ff"/>
+<text x="64" y="728.5" font-size="13" fill="#0f2f57" font-weight="800" text-anchor="middle">A</text>
+<text x="84" y="729" font-size="14.5" fill="#ffffff" font-weight="700" text-anchor="start">DFPlayer + small speaker</text>
+<text x="462" y="728" font-size="10.5" fill="#4dff88" font-weight="700" text-anchor="end">IN THE CODE NOW</text>
+<rect x="176" y="750" width="118" height="74" rx="5" fill="#0b2442" stroke="#7ee0ff" stroke-width="2"/>
+<text x="235.0" y="765" font-size="11.5" fill="#ffffff" font-weight="700" text-anchor="middle">DFPlayer Mini</text>
+<rect x="58" y="774" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="89" y="788" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 4</text>
+<path d="M120 784 L176 784" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="130" y="778" width="34" height="12" rx="2" fill="#0f2f57" stroke="#ffffff" stroke-width="1.5"/>
+<text x="147" y="775" font-size="9.5" fill="#cfe2ff" font-weight="600" text-anchor="middle">1 kΩ</text>
+<text x="182" y="788" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">RX</text>
+<text x="288" y="788" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">SPK1/SPK2</text>
+<path d="M294 784 L316 784" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="322" y="788" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">speaker 0.5–3 W</text>
+<rect x="176" y="830" width="30" height="20" rx="10" fill="#ffa94d" stroke="#ffffff" stroke-width="1.2"/>
+<text x="191.0" y="844" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">5V</text>
+<rect x="212" y="830" width="38" height="20" rx="10" fill="#111111" stroke="#ffffff" stroke-width="1.2"/>
+<text x="231.0" y="844" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GND</text>
+<rect x="56" y="856" width="406" height="20" rx="4" fill="#0b2442"/>
+<text x="62" y="870" font-size="11" fill="#4dff88" font-weight="600" text-anchor="start">#define SPEAKER_TYPE SPEAKER_DFPLAYER</text>
+<text x="58" y="892" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">Talks with the clips on the SD card.</text>
+<text x="58" y="909" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">Never connect the speaker to GND.</text>
+<rect x="490" y="702" width="430" height="252" rx="8" fill="#0f2f57" stroke="#ffffff" stroke-width="1.3"/>
+<circle cx="510" cy="724" r="12" fill="#7ee0ff"/>
+<text x="510" y="728.5" font-size="13" fill="#0f2f57" font-weight="800" text-anchor="middle">B</text>
+<text x="530" y="729" font-size="14.5" fill="#ffffff" font-weight="700" text-anchor="start">DFPlayer + BIG speaker (amplifier)</text>
+<rect x="622" y="750" width="118" height="100" rx="5" fill="#0b2442" stroke="#7ee0ff" stroke-width="2"/>
+<text x="681.0" y="765" font-size="11.5" fill="#ffffff" font-weight="700" text-anchor="middle">DFPlayer Mini</text>
+<rect x="504" y="774" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="535" y="788" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 4</text>
+<path d="M566 784 L622 784" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="576" y="778" width="34" height="12" rx="2" fill="#0f2f57" stroke="#ffffff" stroke-width="1.5"/>
+<text x="593" y="775" font-size="9.5" fill="#cfe2ff" font-weight="600" text-anchor="middle">1 kΩ</text>
+<text x="628" y="788" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">RX</text>
+<text x="734" y="788" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">DAC_R</text>
+<path d="M740 784 L762 784" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="768" y="788" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">PAM8403 amp 2×3 W</text>
+<text x="734" y="814" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">DAC_L</text>
+<path d="M740 810 L762 810" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="768" y="814" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">TPA3116 amp (12 V)</text>
+<text x="734" y="840" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">GND</text>
+<path d="M740 836 L762 836" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="768" y="840" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">or AUX speaker</text>
+<rect x="622" y="856" width="30" height="20" rx="10" fill="#ffa94d" stroke="#ffffff" stroke-width="1.2"/>
+<text x="637.0" y="870" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">5V</text>
+<rect x="658" y="856" width="38" height="20" rx="10" fill="#111111" stroke="#ffffff" stroke-width="1.2"/>
+<text x="677.0" y="870" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GND</text>
+<rect x="502" y="882" width="406" height="20" rx="4" fill="#0b2442"/>
+<text x="508" y="896" font-size="11" fill="#4dff88" font-weight="600" text-anchor="start">#define SPEAKER_TYPE SPEAKER_DFPLAYER</text>
+<text x="504" y="918" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">Line-out → any amplifier or speaker with AUX.</text>
+<text x="504" y="935" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">Use SPK1/SPK2 OR DAC – not both.</text>
+<rect x="936" y="702" width="430" height="252" rx="8" fill="#0f2f57" stroke="#ffffff" stroke-width="1.3"/>
+<circle cx="956" cy="724" r="12" fill="#7ee0ff"/>
+<text x="956" y="728.5" font-size="13" fill="#0f2f57" font-weight="800" text-anchor="middle">C</text>
+<text x="976" y="729" font-size="14.5" fill="#ffffff" font-weight="700" text-anchor="start">Just a speaker / buzzer (tones)</text>
+<rect x="1068" y="750" width="118" height="74" rx="5" fill="#0b2442" stroke="#7ee0ff" stroke-width="2"/>
+<text x="1127.0" y="765" font-size="11.5" fill="#ffffff" font-weight="700" text-anchor="middle">NPN 2N2222</text>
+<rect x="950" y="774" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="981" y="788" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 4</text>
+<path d="M1012 784 L1068 784" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="1022" y="778" width="34" height="12" rx="2" fill="#0f2f57" stroke="#ffffff" stroke-width="1.5"/>
+<text x="1039" y="775" font-size="9.5" fill="#cfe2ff" font-weight="600" text-anchor="middle">1 kΩ</text>
+<text x="1074" y="788" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">base</text>
+<text x="1180" y="788" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">C</text>
+<path d="M1186 784 L1208 784" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1214" y="788" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">speaker + 47 Ω → 5V</text>
+<text x="1180" y="814" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">E</text>
+<path d="M1186 810 L1208 810" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1214" y="814" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">GND</text>
+<rect x="1068" y="830" width="30" height="20" rx="10" fill="#ffa94d" stroke="#ffffff" stroke-width="1.2"/>
+<text x="1083.0" y="844" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">5V</text>
+<rect x="1104" y="830" width="38" height="20" rx="10" fill="#111111" stroke="#ffffff" stroke-width="1.2"/>
+<text x="1123.0" y="844" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GND</text>
+<rect x="948" y="856" width="406" height="20" rx="4" fill="#0b2442"/>
+<text x="954" y="870" font-size="11" fill="#4dff88" font-weight="600" text-anchor="start">#define SPEAKER_TYPE SPEAKER_TONE</text>
+<text x="950" y="892" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">No module: beeps, ding-dong, siren, melodies.</text>
+<text x="950" y="909" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">Passive piezo: straight on GPIO 4 + GND.</text>
+<text x="44" y="984" font-size="16" fill="#ffd34d" font-weight="700" text-anchor="start">POWER FOR THE SMALL LEDS</text>
+<rect x="44" y="998" width="430" height="278" rx="8" fill="#0f2f57" stroke="#4dff88" stroke-width="2.5"/>
+<circle cx="64" cy="1020" r="12" fill="#7ee0ff"/>
+<text x="64" y="1024.5" font-size="13" fill="#0f2f57" font-weight="800" text-anchor="middle">A</text>
+<text x="84" y="1025" font-size="14.5" fill="#ffffff" font-weight="700" text-anchor="start">Straight from the ESP32 pin</text>
+<text x="462" y="1024" font-size="10.5" fill="#4dff88" font-weight="700" text-anchor="end">IN THE CODE NOW</text>
+<rect x="176" y="1046" width="118" height="74" rx="5" fill="#0b2442" stroke="#7ee0ff" stroke-width="2"/>
+<text x="235.0" y="1061" font-size="11.5" fill="#ffffff" font-weight="700" text-anchor="middle">LED</text>
+<rect x="58" y="1070" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="89" y="1084" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 16</text>
+<path d="M120 1080 L176 1080" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="130" y="1074" width="34" height="12" rx="2" fill="#0f2f57" stroke="#ffffff" stroke-width="1.5"/>
+<text x="147" y="1071" font-size="9.5" fill="#cfe2ff" font-weight="600" text-anchor="middle">220 Ω</text>
+<text x="182" y="1084" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">+ (long leg)</text>
+<text x="288" y="1084" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">−</text>
+<path d="M294 1080 L316 1080" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="322" y="1084" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">GND</text>
+<rect x="176" y="1126" width="38" height="20" rx="10" fill="#111111" stroke="#ffffff" stroke-width="1.2"/>
+<text x="195.0" y="1140" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GND</text>
+<rect x="56" y="1152" width="406" height="20" rx="4" fill="#0b2442"/>
+<text x="62" y="1166" font-size="11" fill="#4dff88" font-weight="600" text-anchor="start">TYPE_x LIGHT_LED</text>
+<text x="58" y="1188" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">Up to 3 LEDs per pin, each with its OWN resistor.</text>
+<text x="58" y="1205" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">White/blue: 100 Ω. Max ~20 mA per pin.</text>
+<rect x="490" y="998" width="430" height="278" rx="8" fill="#0f2f57" stroke="#ffffff" stroke-width="1.3"/>
+<circle cx="510" cy="1020" r="12" fill="#7ee0ff"/>
+<text x="510" y="1024.5" font-size="13" fill="#0f2f57" font-weight="800" text-anchor="middle">B</text>
+<text x="530" y="1025" font-size="14.5" fill="#ffffff" font-weight="700" text-anchor="start">Many LEDs: one transistor per room</text>
+<rect x="622" y="1046" width="118" height="74" rx="5" fill="#0b2442" stroke="#7ee0ff" stroke-width="2"/>
+<text x="681.0" y="1061" font-size="11.5" fill="#ffffff" font-weight="700" text-anchor="middle">NPN 2N2222</text>
+<rect x="504" y="1070" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="535" y="1084" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 16</text>
+<path d="M566 1080 L622 1080" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="576" y="1074" width="34" height="12" rx="2" fill="#0f2f57" stroke="#ffffff" stroke-width="1.5"/>
+<text x="593" y="1071" font-size="9.5" fill="#cfe2ff" font-weight="600" text-anchor="middle">1 kΩ</text>
+<text x="628" y="1084" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">base</text>
+<text x="734" y="1084" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">C</text>
+<path d="M740 1080 L762 1080" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="768" y="1084" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">LED − (all LEDs)</text>
+<text x="734" y="1110" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end"></text>
+<path d="M740 1106 L762 1106" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="768" y="1110" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">LED + → 150 Ω → 5V</text>
+<rect x="622" y="1126" width="38" height="20" rx="10" fill="#111111" stroke="#ffffff" stroke-width="1.2"/>
+<text x="641.0" y="1140" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GND</text>
+<rect x="502" y="1152" width="406" height="20" rx="4" fill="#0b2442"/>
+<text x="508" y="1166" font-size="11" fill="#4dff88" font-weight="600" text-anchor="start">TYPE_x LIGHT_LED (dimming works)</text>
+<text x="504" y="1188" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">Up to ~20 LEDs per room from the 5 V rail.</text>
+<text x="504" y="1205" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">IRLZ44N MOSFET instead: up to 100s of LEDs.</text>
+<rect x="936" y="998" width="430" height="278" rx="8" fill="#0f2f57" stroke="#ffffff" stroke-width="1.3"/>
+<circle cx="956" cy="1020" r="12" fill="#7ee0ff"/>
+<text x="956" y="1024.5" font-size="13" fill="#0f2f57" font-weight="800" text-anchor="middle">C</text>
+<text x="976" y="1025" font-size="14.5" fill="#ffffff" font-weight="700" text-anchor="start">ULN2803: 8 rooms on one chip</text>
+<rect x="1068" y="1046" width="118" height="126" rx="5" fill="#0b2442" stroke="#7ee0ff" stroke-width="2"/>
+<text x="1127.0" y="1061" font-size="11.5" fill="#ffffff" font-weight="700" text-anchor="middle">ULN2803</text>
+<rect x="950" y="1070" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="981" y="1084" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 16</text>
+<path d="M1012 1080 L1068 1080" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1074" y="1084" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">IN1</text>
+<rect x="950" y="1096" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="981" y="1110" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 17</text>
+<path d="M1012 1106 L1068 1106" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1074" y="1110" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">IN2</text>
+<rect x="950" y="1122" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="981" y="1136" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 18</text>
+<path d="M1012 1132 L1068 1132" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1074" y="1136" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">IN3</text>
+<rect x="950" y="1148" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="981" y="1162" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 19</text>
+<path d="M1012 1158 L1068 1158" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1074" y="1162" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">IN4</text>
+<text x="1180" y="1084" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">OUT1-4</text>
+<path d="M1186 1080 L1208 1080" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1214" y="1084" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">LED − of each room</text>
+<text x="1180" y="1110" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">COM</text>
+<path d="M1186 1106 L1208 1106" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1214" y="1110" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">5V</text>
+<text x="1180" y="1136" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end"></text>
+<path d="M1186 1132 L1208 1132" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1214" y="1136" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">LED + → 150 Ω → 5V</text>
+<rect x="1068" y="1178" width="30" height="20" rx="10" fill="#ffa94d" stroke="#ffffff" stroke-width="1.2"/>
+<text x="1083.0" y="1192" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">5V</text>
+<rect x="1104" y="1178" width="38" height="20" rx="10" fill="#111111" stroke="#ffffff" stroke-width="1.2"/>
+<text x="1123.0" y="1192" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GND</text>
+<rect x="948" y="1204" width="406" height="20" rx="4" fill="#0b2442"/>
+<text x="954" y="1218" font-size="11" fill="#4dff88" font-weight="600" text-anchor="start">TYPE_x LIGHT_LED</text>
+<text x="950" y="1240" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">Simplest for lots of LEDs: no extra transistors.</text>
+<text x="950" y="1257" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">Pin 9 GND, pin 10 COM to 5 V.</text>
+<text x="44" y="1306" font-size="16" fill="#ffd34d" font-weight="700" text-anchor="start">REAL BULB AND OTHER LOADS</text>
+<rect x="44" y="1320" width="430" height="252" rx="8" fill="#0f2f57" stroke="#ffffff" stroke-width="1.3"/>
+<circle cx="64" cy="1342" r="12" fill="#ff2d55"/>
+<text x="64" y="1346.5" font-size="13" fill="#0f2f57" font-weight="800" text-anchor="middle">A</text>
+<text x="84" y="1347" font-size="14.5" fill="#ffffff" font-weight="700" text-anchor="start">Mains bulb (230 V) with a relay module</text>
+<rect x="176" y="1368" width="118" height="74" rx="5" fill="#0b2442" stroke="#ff2d55" stroke-width="2"/>
+<text x="235.0" y="1383" font-size="11.5" fill="#ffffff" font-weight="700" text-anchor="middle">Relay module</text>
+<rect x="58" y="1392" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="89" y="1406" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 19</text>
+<path d="M120 1402 L176 1402" fill="none" stroke="#ff2d55" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="182" y="1406" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">IN</text>
+<text x="288" y="1406" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">COM</text>
+<path d="M294 1402 L316 1402" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="322" y="1406" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">live (L) in</text>
+<text x="288" y="1432" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">NO</text>
+<path d="M294 1428 L316 1428" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="322" y="1432" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">to bulb, bulb to N</text>
+<rect x="176" y="1448" width="30" height="20" rx="10" fill="#ffa94d" stroke="#ffffff" stroke-width="1.2"/>
+<text x="191.0" y="1462" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">5V</text>
+<rect x="212" y="1448" width="38" height="20" rx="10" fill="#111111" stroke="#ffffff" stroke-width="1.2"/>
+<text x="231.0" y="1462" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GND</text>
+<rect x="56" y="1474" width="406" height="20" rx="4" fill="#0b2442"/>
+<text x="62" y="1488" font-size="11" fill="#4dff88" font-weight="600" text-anchor="start">TYPE_OUTDOOR LIGHT_RELAY</text>
+<text x="58" y="1510" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">On/off only. ADULT ONLY: mains can kill.</text>
+<text x="58" y="1527" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">Closed box, no bare 230 V on the model.</text>
+<rect x="490" y="1320" width="430" height="252" rx="8" fill="#0f2f57" stroke="#ffffff" stroke-width="1.3"/>
+<circle cx="510" cy="1342" r="12" fill="#7ee0ff"/>
+<text x="510" y="1346.5" font-size="13" fill="#0f2f57" font-weight="800" text-anchor="middle">B</text>
+<text x="530" y="1347" font-size="14.5" fill="#ffffff" font-weight="700" text-anchor="start">12 V bulb (safe + dimmable)</text>
+<rect x="622" y="1368" width="118" height="74" rx="5" fill="#0b2442" stroke="#7ee0ff" stroke-width="2"/>
+<text x="681.0" y="1383" font-size="11.5" fill="#ffffff" font-weight="700" text-anchor="middle">IRLZ44N MOSFET</text>
+<rect x="504" y="1392" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="535" y="1406" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 19</text>
+<path d="M566 1402 L622 1402" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="576" y="1396" width="34" height="12" rx="2" fill="#0f2f57" stroke="#ffffff" stroke-width="1.5"/>
+<text x="593" y="1393" font-size="9.5" fill="#cfe2ff" font-weight="600" text-anchor="middle">100 Ω</text>
+<text x="628" y="1406" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">gate</text>
+<text x="734" y="1406" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end">D</text>
+<path d="M740 1402 L762 1402" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="768" y="1406" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">bulb −</text>
+<text x="734" y="1432" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end"></text>
+<path d="M740 1428 L762 1428" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="768" y="1432" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">bulb + → 12V</text>
+<rect x="622" y="1448" width="38" height="20" rx="10" fill="#111111" stroke="#ffffff" stroke-width="1.2"/>
+<text x="641.0" y="1462" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GND</text>
+<rect x="502" y="1474" width="406" height="20" rx="4" fill="#0b2442"/>
+<text x="508" y="1488" font-size="11" fill="#4dff88" font-weight="600" text-anchor="start">TYPE_x LIGHT_LED</text>
+<text x="504" y="1510" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">12 V G4 / car bulb or 12 V LED bulb.</text>
+<text x="504" y="1527" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">Dims like the LEDs. Add 10 kΩ gate → GND.</text>
+<rect x="936" y="1320" width="430" height="252" rx="8" fill="#0f2f57" stroke="#ffffff" stroke-width="1.3"/>
+<circle cx="956" cy="1342" r="12" fill="#7ee0ff"/>
+<text x="956" y="1346.5" font-size="13" fill="#0f2f57" font-weight="800" text-anchor="middle">C</text>
+<text x="976" y="1347" font-size="14.5" fill="#ffffff" font-weight="700" text-anchor="start">Fan alternatives</text>
+<rect x="1068" y="1368" width="118" height="100" rx="5" fill="#0b2442" stroke="#7ee0ff" stroke-width="2"/>
+<text x="1127.0" y="1383" font-size="11.5" fill="#ffffff" font-weight="700" text-anchor="middle">Transistor / relay</text>
+<rect x="950" y="1392" width="62" height="20" rx="4" fill="#0b2442" stroke="#cfe2ff" stroke-width="1"/>
+<text x="981" y="1406" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GPIO 23</text>
+<path d="M1012 1402 L1068 1402" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1074" y="1406" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="start">IN / base</text>
+<text x="1180" y="1406" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end"></text>
+<path d="M1186 1402 L1208 1402" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1214" y="1406" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">small fan: 2N2222</text>
+<text x="1180" y="1432" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end"></text>
+<path d="M1186 1428 L1208 1428" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1214" y="1432" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">12 V PC fan: IRLZ44N</text>
+<text x="1180" y="1458" font-size="10" fill="#cfe2ff" font-weight="600" text-anchor="end"></text>
+<path d="M1186 1454 L1208 1454" fill="none" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1214" y="1458" font-size="11.5" fill="#ffffff" font-weight="400" text-anchor="start">mains fan: relay</text>
+<rect x="1068" y="1474" width="30" height="20" rx="10" fill="#ffa94d" stroke="#ffffff" stroke-width="1.2"/>
+<text x="1083.0" y="1488" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">5V</text>
+<rect x="1104" y="1474" width="38" height="20" rx="10" fill="#111111" stroke="#ffffff" stroke-width="1.2"/>
+<text x="1123.0" y="1488" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">GND</text>
+<rect x="948" y="1500" width="406" height="20" rx="4" fill="#0b2442"/>
+<text x="954" y="1514" font-size="11" fill="#4dff88" font-weight="600" text-anchor="start">FAN_IS_RELAY 1 (relay) · 0 (speed)</text>
+<text x="950" y="1536" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">A transistor or MOSFET gives 3 speeds + breeze.</text>
+<text x="950" y="1553" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start">A relay only switches on/off.</text>
+</svg>
