@@ -39,6 +39,9 @@ sdcard/mp3/                the speaker's voice clips – copy to the DFPlayer's 
 wokwi/                     diagram.json + files to run the firmware in the Wokwi simulator
 tools/build_webapp.py      packs /webapp into the end of smarthome.ino
 tools/make_voice_clips.py  makes the speaker clips (only if you want other words)
+INSTALL-WINDOWS.bat        one-click Windows installer (tools/windows/install-windows.ps1)
+docs/INSTALL.md            installation guide + troubleshooting
+docs/RUN_THE_APP.md        open the app: from the ESP32, online, demo
 docs/BLUEPRINT.md          layout blueprint, simplified wiring, pin table, build order
 docs/ALTERNATIVES.md       DC motor, servo, big/small speaker, LED power, real bulb, fan, strip
 docs/ALEXA_AND_VOICE.md    Alexa setup, voice phrases, buttons, all commands
@@ -46,7 +49,15 @@ docs/ONLINE_AND_SIMULATOR.md   GitHub Pages, Wokwi, MQTT remote control
 .github/workflows/         auto-compile check + GitHub Pages deploy
 ```
 
-## Quick start (Arduino IDE on your PC)
+## Install
+
+📦 **Full step-by-step guide: [docs/INSTALL.md](docs/INSTALL.md)**
+
+**Windows, the quick way:** download the ZIP of branch `claude/wonderful-galileo-4p3xz7`, unzip it and double-click
+**`INSTALL-WINDOWS.bat`**. It copies the sketch to `Documents\Arduino\smarthome`, asks for your Wi-Fi, installs the
+ESP32 boards and libraries, uploads to the ESP32, copies the speaker clips to the SD card and opens the app.
+
+## Quick start (Arduino IDE by hand)
 
 1. **Get the code:** on GitHub click **Code → Download ZIP** (or `git clone https://github.com/Angeldev256/smarthome`) and unzip it.
 2. **Install the Arduino IDE 2** from arduino.cc.
