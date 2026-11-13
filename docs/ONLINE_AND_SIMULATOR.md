@@ -4,8 +4,8 @@ There are three "online" options. Use whichever fits your situation.
 
 | Option | Needs hardware? | What you get |
 |---|---|---|
-| **A. Web app demo mode** | No | The dashboard opens with a built-in simulator. Press Rain, Motion or Car to see the automation. |
-| **B. Wokwi simulator** | No | The **real ESP32 firmware** runs online in Wokwi with virtual sensors, servos, LEDs and LCD. |
+| **A. Web app demo mode** | No | The dashboard opens with a built-in simulated estate: the gate turns, the fan spins, the strip glows. |
+| **B. Wokwi simulator** | No | The **real ESP32 firmware** runs online in Wokwi with a virtual stepper gate, LEDs, RGB LED and buttons. |
 | **C. Real model + online web app** | Yes | Control the real estate from any phone, anywhere, through MQTT. |
 
 ---
@@ -31,12 +31,13 @@ You can also just open `webapp/index.html` on your PC by double-clicking it.
    * `secrets.example.h` ← `firmware/smart_estate/secrets.example.h`
    * `libraries.txt` ← `wokwi/libraries.txt`
 5. Press ▶ **Start**. In the simulator:
-   * the slide switches are **Rain**, **IR gate**, **IR garage** and **Door**. Flip them to trigger the sensors
-   * click the **PIR** to make motion, and click the **DHT22** to change the temperature (above 30 °C turns the fan LED on)
-   * type `gate open`, `living on`, `security on` or `state` in the Serial Monitor
-6. **Control the simulated ESP32 from the web app:** change `HOME_ID` in `secrets.h` to something unique, then in the web app open ⚙ → **Online** and type the same Home ID. The pill turns green ("Online") and every switch moves the virtual servos and LEDs.
+   * press the **Lights**, **Gate** and **Fan** buttons (hold one for 1 s for its second job)
+   * watch the stepper turn 1080° when the gate opens, and the RGB LED show the strip colour
+   * the blue **Fan** LED gets brighter with each fan speed
+   * type `gate open`, `living 50`, `fan 3`, `strip red`, `scene party` or `state` in the Serial Monitor
+6. **Control the simulated ESP32 from the web app:** change `HOME_ID` in `secrets.h` to something unique, then in the web app open ⚙ → **Online** and type the same Home ID. The pill turns green ("Online") and every switch moves the virtual motor and LEDs.
 
-> Wokwi only has a DHT22, so `WOKWI_SIM` switches the code to DHT22. Alexa is turned off in the simulator because Alexa can't discover a virtual device.
+> Alexa is turned off in the simulator because Alexa can't discover a virtual device. Wokwi has no DFPlayer, so the speaker stays quiet there.
 
 ## C. Control the real model from anywhere (MQTT)
 
@@ -45,7 +46,7 @@ How it works:
 ```
  Phone / laptop (GitHub Pages app) ──wss──►  MQTT broker  ◄──tcp── ESP32 in the model
             publishes  smartestate/<HOME_ID>/cmd     {"device":"gate","value":"open"}
-            receives   smartestate/<HOME_ID>/state   {"gate":true,"temp":27.4,...}
+            receives   smartestate/<HOME_ID>/state   {"gate":true,"gate_state":"opening","fan_speed":2,...}
                        smartestate/<HOME_ID>/online  1 / 0
 ```
 
@@ -61,5 +62,5 @@ How it works:
 
 ## Local only (no internet at the exhibition)
 
-* The ESP32 serves the full dashboard itself at **http://smartestate.local** or at the IP shown on the LCD.
+* The ESP32 serves the full dashboard itself at **http://smartestate.local** or at the IP printed in the Serial Monitor.
 * If it can't join Wi-Fi within 20 s, it makes its own hotspot **SmartEstate** (password `smartestate`). Connect your phone to it and open **http://192.168.4.1**.

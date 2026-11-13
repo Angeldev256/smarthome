@@ -1,8 +1,4 @@
 # Wokwi installs these libraries automatically
-ESP32Servo
-DHT sensor library
-Adafruit Unified Sensor
 ArduinoJson
 PubSubClient
-LiquidCrystal I2C
 Espalexa

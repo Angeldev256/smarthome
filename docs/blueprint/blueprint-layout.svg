@@ -1,0 +1,230 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 980" width="1200" height="980" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <title>Smart Estate – layout blueprint (top view)</title>
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M20 0H0V20" fill="none" stroke="#2b5c95" stroke-width=".6"/>
+    </pattern>
+    <pattern id="grid5" width="100" height="100" patternUnits="userSpaceOnUse">
+      <rect width="100" height="100" fill="url(#grid)"/>
+      <path d="M100 0H0V100" fill="none" stroke="#3a6fae" stroke-width="1"/>
+    </pattern>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#ffffff"/></marker>
+  </defs>
+  <style>
+    .wall { fill: none; stroke: #ffffff; stroke-width: 3; }
+    .thin { fill: none; stroke: #cfe2ff; stroke-width: 1.5; }
+    .room { fill: #1d4c84; stroke: #ffffff; stroke-width: 2.5; }
+    .t { fill: #ffffff; font-size: 15px; }
+    .ts { fill: #cfe2ff; font-size: 12.5px; }
+    .th { fill: #ffffff; font-size: 17px; font-weight: 700; letter-spacing: .04em; }
+    .tag { font-size: 13px; font-weight: 700; fill: #0f2f57; text-anchor: middle; dominant-baseline: central; }
+    .trunk { fill: none; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; opacity: .9; }
+    .trunkl { fill: #ffffff; font-size: 12.5px; font-weight: 600; }
+  </style>
+
+  <!-- sheet -->
+  <rect width="1200" height="980" fill="#163f70"/>
+  <rect x="20" y="20" width="1160" height="940" fill="url(#grid5)" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- title block -->
+  <text x="44" y="58" class="th" font-size="24">SMART ESTATE · LAYOUT BLUEPRINT (TOP VIEW)</text>
+  <text x="44" y="82" class="ts">Drawn from the cardboard model photo. Gate at the front (bottom). All electronics live in the GARAGE = one control hub, so only a few small cables leave it.</text>
+
+  <!-- ===================== THE MODEL ===================== -->
+  <g transform="translate(40 100)">
+    <!-- base board -->
+    <rect x="20" y="10" width="800" height="600" fill="#1a467a" stroke="#cfe2ff" stroke-dasharray="8 6" stroke-width="1.5"/>
+    <text x="28" y="30" class="ts">base board (grass)</text>
+
+    <!-- boundary wall -->
+    <path class="wall" d="M330 560H60V60H780V560H510" stroke-width="10" stroke="#ffffff"/>
+    <path d="M330 560H60V60H780V560H510" fill="none" stroke="#163f70" stroke-width="5"/>
+    <!-- pillars -->
+    <g fill="#ffffff">
+      <rect x="50" y="50" width="22" height="22"/><rect x="768" y="50" width="22" height="22"/>
+      <rect x="50" y="548" width="22" height="22"/><rect x="768" y="548" width="22" height="22"/>
+      <rect x="316" y="546" width="26" height="26"/><rect x="498" y="546" width="26" height="26"/>
+    </g>
+
+    <!-- left house -->
+    <rect class="room" x="95" y="95" width="230" height="250"/>
+    <path class="thin" d="M210 95V190M210 230V345" stroke-width="2.5"/>
+    <text x="110" y="122" class="th">LEFT HOUSE</text>
+    <text x="110" y="142" class="ts">living room + small room</text>
+    <!-- right house -->
+    <rect class="room" x="515" y="95" width="230" height="250"/>
+    <path class="thin" d="M630 95V180M630 220V345" stroke-width="2.5"/>
+    <text x="530" y="122" class="th">RIGHT HOUSE</text>
+    <text x="530" y="142" class="ts">bedroom</text>
+    <!-- garage / hub -->
+    <rect x="355" y="85" width="130" height="135" fill="#0f2f57" stroke="#ffd34d" stroke-width="3"/>
+    <text x="420" y="108" class="th" text-anchor="middle" style="fill:#ffd34d;font-size:15px">GARAGE</text>
+    <text x="420" y="125" class="ts" text-anchor="middle">CONTROL HUB</text>
+    <!-- driveway -->
+    <path class="thin" d="M375 220V560M465 220V560"/>
+    
+    <text x="400" y="400" class="ts" text-anchor="middle" transform="rotate(-90 400 400)">DRIVEWAY</text>
+    <!-- gate leaves (open position dashed) -->
+    <path d="M342 560H420M420 560H498" stroke="#ffffff" stroke-width="5"/>
+    <path d="M342 560L392 510M498 560L448 510" stroke="#cfe2ff" stroke-width="2" stroke-dasharray="5 4"/>
+    <path d="M378 545A40 40 0 0 1 392 520" class="thin" marker-end="url(#arr)"/>
+    <text x="420" y="590" class="t" text-anchor="middle" font-weight="700">MAIN GATE</text>
+    <!-- clotheslines -->
+    <g class="thin" stroke-width="1">
+      <path d="M85 430H320M85 445H320M85 460H320M85 475H320"/>
+      <path d="M520 430H755M520 445H755M520 460H755M520 475H755"/>
+    </g>
+    <text x="200" y="500" class="ts" text-anchor="middle">clothesline</text>
+    <text x="640" y="500" class="ts" text-anchor="middle">clothesline</text>
+
+    <!-- RGB strip along the inside of the wall -->
+    <path d="M330 548H72V72H768V548H510" fill="none" stroke="url(#rgbgrad)" stroke-width="5" stroke-dasharray="2 5" stroke-linecap="round"/>
+    <linearGradient id="rgbgrad" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#ff4d4d"/><stop offset=".33" stop-color="#4dff88"/><stop offset=".66" stop-color="#4d8bff"/><stop offset="1" stop-color="#ff4dff"/>
+    </linearGradient>
+
+    <!-- ============ CABLE TRUNKS (under the base) ============ -->
+    <!-- A: hub -> left house -->
+    <path class="trunk" stroke="#ffd34d" d="M355 170H260V200"/>
+    <!-- B: hub -> right house -->
+    <path class="trunk" stroke="#7ee0ff" d="M485 170H580V200"/>
+    <!-- C: hub -> gate (under the driveway) -->
+    <path class="trunk" stroke="#ff9f6b" d="M440 220V530H500"/>
+    <path class="trunk" stroke="#ff9f6b" d="M440 530H340"/>
+    <!-- D: hub -> strip start -->
+    <path class="trunk" stroke="#e58cff" d="M400 85V72"/>
+    <!-- E: 12 V adapter in -->
+    <path class="trunk" stroke="#ff5c5c" d="M450 85V20"/>
+    <text x="458" y="30" class="trunkl">E</text>
+    <rect x="425" y="0" width="50" height="16" rx="3" fill="#ff5c5c"/>
+    <text x="450" y="9" class="tag" style="fill:#fff;font-size:10px">12 V IN</text>
+
+    <!-- trunk letters -->
+    <g>
+      <circle cx="300" cy="170" r="11" fill="#ffd34d"/><text x="300" y="170" class="tag">A</text>
+      <circle cx="540" cy="170" r="11" fill="#7ee0ff"/><text x="540" y="170" class="tag">B</text>
+      <circle cx="440" cy="380" r="11" fill="#ff9f6b"/><text x="440" y="380" class="tag">C</text>
+      <circle cx="380" cy="72" r="11" fill="#e58cff"/><text x="380" y="72" class="tag">D</text>
+    </g>
+
+    <!-- ============ PARTS ============ -->
+    <!-- hub contents -->
+    <g>
+      <rect x="365" y="135" width="110" height="78" rx="4" fill="#163f70" stroke="#cfe2ff" stroke-width="1"/>
+      <circle cx="383" cy="150" r="10" fill="#ffffff"/><text x="383" y="150" class="tag">1</text>
+      <circle cx="406" cy="150" r="10" fill="#ffffff"/><text x="406" y="150" class="tag">2</text>
+      <circle cx="429" cy="150" r="10" fill="#ffffff"/><text x="429" y="150" class="tag">3</text>
+      <circle cx="452" cy="150" r="10" fill="#ffffff"/><text x="452" y="150" class="tag">4</text>
+      <circle cx="383" cy="175" r="10" fill="#ffffff"/><text x="383" y="175" class="tag">5</text>
+      <circle cx="406" cy="175" r="10" fill="#ffffff"/><text x="406" y="175" class="tag">6</text>
+      <circle cx="429" cy="175" r="10" fill="#ffffff"/><text x="429" y="175" class="tag">7</text>
+      <circle cx="452" cy="175" r="10" fill="#ffffff"/><text x="452" y="175" class="tag">8</text>
+      <text x="420" y="202" class="ts" text-anchor="middle" font-size="11">boards on the breadboard</text>
+    </g>
+    <!-- buttons on the garage front -->
+    <g>
+      <circle cx="388" cy="232" r="8" fill="#ff5c5c" stroke="#fff" stroke-width="2"/>
+      <circle cx="420" cy="232" r="8" fill="#ffd34d" stroke="#fff" stroke-width="2"/>
+      <circle cx="452" cy="232" r="8" fill="#4dff88" stroke="#fff" stroke-width="2"/>
+      <text x="488" y="236" class="ts" font-size="11">B1 B2 B3</text>
+    </g>
+    <!-- LEDs -->
+    <g>
+      <circle cx="150" cy="260" r="12" fill="#ffd34d"/><text x="150" y="260" class="tag">L1</text>
+      <circle cx="270" cy="290" r="12" fill="#ffd34d"/><text x="270" y="290" class="tag">L1</text>
+      <circle cx="690" cy="260" r="12" fill="#ffd34d"/><text x="690" y="260" class="tag">L2</text>
+      <circle cx="570" cy="290" r="12" fill="#ffd34d"/><text x="570" y="290" class="tag">L2</text>
+      <circle cx="370" cy="101" r="11" fill="#ffd34d"/><text x="370" y="101" class="tag" style="font-size:11px">L3</text>
+      <circle cx="329" cy="559" r="11" fill="#ffd34d"/><text x="329" y="559" class="tag" style="font-size:11px">L4</text>
+      <circle cx="511" cy="559" r="11" fill="#ffd34d"/><text x="511" y="559" class="tag" style="font-size:11px">L4</text>
+    </g>
+    <!-- fan -->
+    <g transform="translate(150 200)">
+      <circle r="20" fill="none" stroke="#7ee0ff" stroke-width="2"/>
+      <path d="M0 0L-4-16 4-16Z M0 0L16-4 16 4Z M0 0L4 16-4 16Z M0 0L-16 4-16-4Z" fill="#7ee0ff"/>
+      <text x="26" y="5" class="t" font-weight="700">F</text>
+    </g>
+    <!-- stepper motor at the right gate pillar -->
+    <g transform="translate(511 520)">
+      <circle r="17" fill="#163f70" stroke="#ff9f6b" stroke-width="3"/>
+      <text class="tag" style="fill:#ff9f6b">M</text>
+    </g>
+    <!-- speaker -->
+    <g transform="translate(466 101)">
+      <path d="M-6-5h4l7-6v22l-7-6h-4z" fill="#ffffff"/>
+      <path d="M9-5a7 7 0 0 1 0 10" fill="none" stroke="#fff" stroke-width="2"/>
+    </g>
+  </g>
+
+  <!-- ===================== LEGEND ===================== -->
+  <g transform="translate(880 120)">
+    <rect x="0" y="0" width="280" height="590" fill="#0f2f57" stroke="#ffffff" stroke-width="1.5"/>
+    <text x="16" y="28" class="th">KEY</text>
+    <g class="t" font-size="13.5">
+      <text x="16" y="56"><tspan font-weight="700">1</tspan>  ESP32 DevKit</text>
+      <text x="16" y="78"><tspan font-weight="700">2</tspan>  Buck converter 12 V → 5 V</text>
+      <text x="16" y="100"><tspan font-weight="700">3</tspan>  ULN2003 stepper driver</text>
+      <text x="16" y="122"><tspan font-weight="700">4</tspan>  DFPlayer Mini + SD card</text>
+      <text x="16" y="144"><tspan font-weight="700">5</tspan>  Fan transistor + diode</text>
+      <text x="16" y="166"><tspan font-weight="700">6–8</tspan>  3 MOSFETs for the RGB strip</text>
+      <text x="16" y="196"><tspan font-weight="700">🔈</tspan>  Speaker (on the garage roof)</text>
+      <text x="16" y="218"><tspan font-weight="700">B1–B3</tspan>  Buttons: Lights · Gate · Fan</text>
+      <text x="16" y="240"><tspan font-weight="700">L1</tspan>  Living room LEDs (GPIO 16)</text>
+      <text x="16" y="262"><tspan font-weight="700">L2</tspan>  Bedroom LEDs (GPIO 17)</text>
+      <text x="16" y="284"><tspan font-weight="700">L3</tspan>  Garage LED (GPIO 18)</text>
+      <text x="16" y="306"><tspan font-weight="700">L4</tspan>  Gate pillar LEDs (GPIO 19)</text>
+      <text x="16" y="328"><tspan font-weight="700">F</tspan>  Fan, living room ceiling (GPIO 23)</text>
+      <text x="16" y="350"><tspan font-weight="700">M</tspan>  28BYJ-48 gate motor</text>
+      <text x="16" y="372" fill="#e58cff" style="fill:#e58cff">• • • RGB strip on the wall tops</text>
+    </g>
+    <text x="16" y="408" class="th" font-size="15">CABLES OUT OF THE HUB</text>
+    <g font-size="13" class="t">
+      <rect x="16" y="420" width="18" height="7" fill="#ffd34d"/><text x="42" y="428">A  Left house · 4 wires</text>
+      <text x="42" y="446" class="ts">L1 signal, fan +, fan −, GND</text>
+      <rect x="16" y="458" width="18" height="7" fill="#7ee0ff"/><text x="42" y="466">B  Right house · 2 wires</text>
+      <text x="42" y="484" class="ts">L2 signal, GND</text>
+      <rect x="16" y="496" width="18" height="7" fill="#ff9f6b"/><text x="42" y="504">C  Gate · 2 wires + motor plug</text>
+      <text x="42" y="522" class="ts">L4 signal, GND, motor cable (5)</text>
+      <rect x="16" y="534" width="18" height="7" fill="#e58cff"/><text x="42" y="542">D  RGB strip · 4 wires</text>
+      <text x="42" y="560" class="ts">+12 V, R, G, B</text>
+      <rect x="16" y="572" width="18" height="7" fill="#ff5c5c"/><text x="42" y="580">E  12 V adapter in · 2 wires</text>
+    </g>
+  </g>
+
+  <!-- ===================== DETAILS ===================== -->
+  <g transform="translate(60 740)">
+    <rect x="0" y="0" width="520" height="200" fill="#0f2f57" stroke="#ffffff" stroke-width="1.5"/>
+    <text x="16" y="28" class="th" font-size="15">DETAIL – GATE DRIVE (side view)</text>
+    <!-- pillar -->
+    <rect x="40" y="60" width="40" height="120" fill="none" stroke="#fff" stroke-width="2"/>
+    <text x="60" y="196" class="ts" text-anchor="middle" font-size="11">pillar</text>
+    <!-- motor on top -->
+    <rect x="30" y="40" width="60" height="22" rx="4" fill="#163f70" stroke="#ff9f6b" stroke-width="2.5"/>
+    <text x="60" y="55" class="tag" style="fill:#ff9f6b;font-size:11px">28BYJ-48</text>
+    <!-- shaft + spool -->
+    <path d="M90 51H140" stroke="#fff" stroke-width="3"/>
+    <rect x="140" y="40" width="16" height="22" fill="#ffd34d"/>
+    <text x="148" y="80" class="ts" text-anchor="middle" font-size="11">spool</text>
+    <!-- thread to gate -->
+    <path d="M156 51C260 51 320 90 370 100" fill="none" stroke="#cfe2ff" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <rect x="370" y="80" width="130" height="70" fill="none" stroke="#fff" stroke-width="2"/>
+    <path d="M370 92H500M370 105H500M370 118H500M370 131H500M370 144H500" stroke="#cfe2ff" stroke-width=".8"/>
+    <text x="435" y="170" class="ts" text-anchor="middle" font-size="11">gate leaf</text>
+    <text x="100" y="118" class="t" font-size="12.5">motor turns 1080° (3 turns)</text>
+    <text x="100" y="138" class="ts" font-size="12">= GATE_TURN_DEGREES in config.h</text>
+    <text x="100" y="158" class="ts" font-size="12">or fix the leaf straight on the shaft</text>
+  </g>
+
+  <g transform="translate(600 740)">
+    <rect x="0" y="0" width="560" height="200" fill="#0f2f57" stroke="#ffffff" stroke-width="1.5"/>
+    <text x="16" y="28" class="th" font-size="15">WIRING RULES THAT KEEP IT SIMPLE</text>
+    <g class="t" font-size="13">
+      <text x="16" y="56">1. Every board sits in the garage. Only cables A–E leave it.</text>
+      <text x="16" y="80">2. Make each cable from the rainbow ribbon: peel off 2, 4 or 7 wires.</text>
+      <text x="16" y="104">3. One GND wire per cable; every part far away uses that GND.</text>
+      <text x="16" y="128">4. Colours: red = 12 V, orange = 5 V, black = GND, others = signals.</text>
+      <text x="16" y="152">5. Run cables under the base, poke up through a small hole in each room.</text>
+      <text x="16" y="176">6. Buttons go on the garage front, so they need no long wires.</text>
+    </g>
+  </g>
+</svg>

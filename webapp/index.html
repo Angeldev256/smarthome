@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Smart Estate</title>
-<meta name="description" content="Control the Smart Estate ESP32 model: lights, gate, garage, rain cover, security, Alexa and voice.">
+<meta name="description" content="Control the Smart Estate ESP32 model: lights, motor gate, fan, RGB strip, speaker, Alexa and voice.">
 <meta name="theme-color" content="#1f7a4d">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -39,9 +39,11 @@
             <path d="M0 0H16M0 4H16M8 0V4M0 4V8M16 4V8" stroke="#7d2f20" stroke-width="1"/>
           </pattern>
           <radialGradient id="glow"><stop offset="0" stop-color="#ffd85a" stop-opacity=".95"/><stop offset="1" stop-color="#ffd85a" stop-opacity="0"/></radialGradient>
+          <filter id="stripBlur" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="4"/></filter>
         </defs>
         <!-- grass -->
         <rect x="0" y="0" width="600" height="420" fill="var(--grass)"/>
+
         <!-- boundary walls (open at the gate) -->
         <rect x="20" y="20" width="560" height="14" fill="url(#brick)"/>
         <rect x="20" y="20" width="14" height="380" fill="url(#brick)"/>
@@ -49,31 +51,42 @@
         <rect x="20" y="386" width="225" height="14" fill="url(#brick)"/>
         <rect x="355" y="386" width="225" height="14" fill="url(#brick)"/>
 
+        <!-- RGB strip along the inside of the walls -->
+        <g id="m-strip" opacity="0">
+          <path id="m-strip-glow" d="M245 383H37V37H563V383H355" fill="none" stroke="#00ff60" stroke-width="12" filter="url(#stripBlur)"/>
+          <path id="m-strip-line" d="M245 383H37V37H563V383H355" fill="none" stroke="#00ff60" stroke-width="3" stroke-linecap="round"/>
+        </g>
+
         <!-- driveway -->
         <rect x="250" y="170" width="100" height="216" fill="var(--road)"/>
         <path d="M300 180V380" stroke="#fff" stroke-width="2" stroke-dasharray="10 10" opacity=".7"/>
 
-        <!-- garage (centre back) -->
+        <!-- garage (centre back) = control box with the ESP32 -->
         <g id="m-garage">
           <rect x="235" y="50" width="130" height="110" rx="4" fill="#c49a6c" stroke="#8a6a45" stroke-width="2"/>
           <rect id="m-garage-glow" x="245" y="60" width="110" height="80" rx="3" fill="#ffd85a" opacity="0"/>
-          <text x="300" y="98" text-anchor="middle" font-size="13" font-weight="700" fill="#3b2a17">GARAGE</text>
-          <rect id="m-garage-door" x="245" y="148" width="110" height="12" fill="#6e5234"/>
-          <g id="m-car-garage" opacity="0">
-            <rect x="275" y="104" width="50" height="34" rx="8" fill="#2f6fe0"/><rect x="283" y="110" width="34" height="10" rx="3" fill="#cfe0ff"/>
+          <text x="300" y="92" text-anchor="middle" font-size="13" font-weight="700" fill="#3b2a17">GARAGE</text>
+          <text x="300" y="108" text-anchor="middle" font-size="10" fill="#3b2a17">ESP32 control box</text>
+          <rect x="245" y="148" width="110" height="12" fill="#6e5234"/>
+          <!-- speaker -->
+          <g id="m-speaker" transform="translate(338 128)">
+            <path d="M-6-5h5l7-6v22l-7-6h-5z" fill="#2a332d"/>
+            <g id="m-waves" fill="none" stroke="#2a332d" stroke-width="2" stroke-linecap="round" opacity="0">
+              <path d="M9-5a7 7 0 0 1 0 10"/><path d="M12-9a12 12 0 0 1 0 18"/>
+            </g>
           </g>
         </g>
 
         <!-- left house: living room -->
-        <g id="m-living-house">
+        <g>
           <rect x="55" y="60" width="160" height="170" rx="4" fill="#f4f1ea" stroke="#9aa39c" stroke-width="2"/>
           <rect id="m-living" x="65" y="70" width="140" height="150" rx="3" fill="#ffd85a" opacity="0"/>
-          <text x="135" y="140" text-anchor="middle" font-size="13" font-weight="700" fill="#2a332d">LIVING ROOM</text>
-          <g id="m-fan" transform="translate(135 175)">
+          <text x="135" y="120" text-anchor="middle" font-size="13" font-weight="700" fill="#2a332d">LIVING ROOM</text>
+          <g id="m-fan" transform="translate(135 170)">
             <g class="blades"><path d="M0 0L-4-18 4-18Z M0 0L18-4 18 4Z M0 0L4 18-4 18Z M0 0L-18 4-18-4Z" fill="#5d6b61"/></g>
             <circle r="4" fill="#2a332d"/>
           </g>
-          <rect id="m-door" x="190" y="200" width="25" height="6" fill="#6e5234"/>
+          <text id="m-fan-label" x="135" y="208" text-anchor="middle" font-size="11" fill="#2a332d">fan off</text>
         </g>
 
         <!-- right house: bedroom -->
@@ -84,66 +97,48 @@
           <text x="465" y="120" text-anchor="middle" font-size="13" font-weight="700" fill="#2a332d">BEDROOM</text>
         </g>
 
-        <!-- clotheslines -->
+        <!-- clotheslines (decoration) -->
         <g stroke="#e8e2d0" stroke-width="1.5">
           <path d="M50 300H220M50 312H220M50 324H220M50 336H220"/>
           <path d="M380 300H550M380 312H550M380 324H550M380 336H550"/>
         </g>
         <g fill="#ff7a59"><rect x="80" y="300" width="14" height="18"/><rect x="130" y="312" width="18" height="14" fill="#5ab0ff"/><rect x="420" y="300" width="14" height="18" fill="#ffd34d"/><rect x="480" y="324" width="18" height="14"/></g>
-        <g id="m-cover" opacity=".15">
-          <rect x="44" y="290" width="182" height="56" rx="4" fill="#cfd8dc" stroke="#78909c" stroke-width="2"/>
-          <rect x="374" y="290" width="182" height="56" rx="4" fill="#cfd8dc" stroke="#78909c" stroke-width="2"/>
-        </g>
-        <text x="135" y="364" text-anchor="middle" font-size="11" fill="#e7f5ec">clothesline</text>
-        <text x="465" y="364" text-anchor="middle" font-size="11" fill="#e7f5ec">clothesline</text>
 
-        <!-- outdoor / security light -->
-        <circle id="m-outdoor-glow" cx="235" cy="270" r="40" fill="url(#glow)" opacity="0"/>
-        <circle id="m-outdoor" cx="235" cy="270" r="6" fill="#55605a" stroke="#222" stroke-width="1.5"/>
+        <!-- outdoor lights on the gate pillars -->
+        <circle id="m-outdoor-glow-l" cx="238" cy="378" r="38" fill="url(#glow)" opacity="0"/>
+        <circle id="m-outdoor-glow-r" cx="362" cy="378" r="38" fill="url(#glow)" opacity="0"/>
+        <circle class="m-outdoor" cx="238" cy="378" r="6" fill="#55605a" stroke="#222" stroke-width="1.5"/>
+        <circle class="m-outdoor" cx="362" cy="378" r="6" fill="#55605a" stroke="#222" stroke-width="1.5"/>
 
-        <!-- motion ripple (PIR) -->
-        <g id="m-motion" opacity="0">
-          <circle cx="365" cy="270" r="10" fill="none" stroke="#ff6b63" stroke-width="3"/>
-          <circle cx="365" cy="270" r="22" fill="none" stroke="#ff6b63" stroke-width="2" opacity=".6"/>
-        </g>
-        <circle cx="365" cy="270" r="5" fill="#fff" stroke="#555"/>
-
-        <!-- gate -->
+        <!-- gate (two leaves, motor-driven) -->
         <g id="m-gate-l"><rect x="245" y="386" width="55" height="8" fill="#8a6a45"/></g>
         <g id="m-gate-r"><rect x="300" y="386" width="55" height="8" fill="#8a6a45"/></g>
-        <g id="m-car-gate" opacity="0">
-          <rect x="275" y="400" width="50" height="34" rx="8" fill="#e04f2f" transform="translate(0 -24)"/>
-        </g>
-
-        <!-- rain -->
-        <g id="m-rain" opacity="0" stroke="#7fc4ff" stroke-width="2" stroke-linecap="round">
-          <path d="M60 40l-6 14M140 30l-6 14M220 50l-6 14M300 30l-6 14M380 45l-6 14M460 30l-6 14M540 50l-6 14M100 250l-6 14M180 270l-6 14M420 250l-6 14M520 270l-6 14M60 380l-6 14M520 370l-6 14M300 240l-6 14"/>
-        </g>
-
-        <!-- alarm overlay -->
-        <rect id="m-alarm" x="0" y="0" width="600" height="420" fill="none" stroke="#ff3b30" stroke-width="10" opacity="0"/>
+        <text id="m-gate-label" x="300" y="414" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">CLOSED</text>
       </svg>
       <div class="map-legend">
         <span>Gate: <b id="lg-gate">–</b></span>
-        <span>Garage: <b id="lg-garage">–</b></span>
-        <span>Cover: <b id="lg-cover">–</b></span>
-        <span>Security: <b id="lg-sec">–</b></span>
+        <span>Fan: <b id="lg-fan">–</b></span>
+        <span>Strip: <b id="lg-strip">–</b></span>
+        <span>Lights on: <b id="lg-lights">–</b></span>
       </div>
     </div>
 
     <div class="card">
       <h2>Live status</h2>
       <div class="stats">
-        <div class="stat"><div class="label">Temperature</div><div class="value" id="st-temp">–<small>°C</small></div></div>
-        <div class="stat"><div class="label">Humidity</div><div class="value" id="st-hum">–<small>%</small></div></div>
-        <div class="stat" id="st-rain-tile"><div class="label">Rain sensor</div><div class="value" id="st-rain">–</div></div>
-        <div class="stat" id="st-motion-tile"><div class="label">Motion (PIR)</div><div class="value" id="st-motion">–</div></div>
-        <div class="stat"><div class="label">Car at gate</div><div class="value" id="st-cargate">–</div></div>
-        <div class="stat" id="st-door-tile"><div class="label">Front door</div><div class="value" id="st-door">–</div></div>
+        <div class="stat"><div class="label">Gate</div><div class="value" id="st-gate">–</div><div class="bar"><span id="st-gate-bar"></span></div></div>
+        <div class="stat"><div class="label">Fan</div><div class="value" id="st-fan">–</div></div>
+        <div class="stat"><div class="label">Lights on</div><div class="value" id="st-lights">–<small>/4</small></div></div>
+        <div class="stat"><div class="label">Speaker volume</div><div class="value" id="st-vol">–<small>/30</small></div></div>
       </div>
       <div class="event" id="st-event">Waiting for the estate…</div>
-      <div class="btn-row">
-        <button class="btn danger" id="alarmStop" hidden>Silence alarm</button>
+      <h2 style="margin-top:16px">Scenes</h2>
+      <div class="btn-row" style="margin-top:0">
+        <button class="btn" data-cmd="scene:welcome">🏠 Welcome home</button>
+        <button class="btn" data-cmd="scene:goodnight">🌙 Good night</button>
+        <button class="btn" data-cmd="scene:party">🎉 Party</button>
+        <button class="btn" data-cmd="scene:normal">↺ Normal</button>
+        <button class="btn" data-cmd="doorbell:ring">🔔 Doorbell</button>
       </div>
     </div>
   </section>
@@ -151,38 +146,70 @@
   <!-- ================= CONTROLS ================= -->
   <section class="grid">
     <div class="card">
-      <h2>Lights</h2>
-      <div class="row"><div class="name">Living room<div class="sub">Left house</div></div><label class="switch"><input type="checkbox" data-dev="living" aria-label="Living room light"><span></span></label></div>
-      <div class="row"><div class="name">Bedroom<div class="sub">Right house</div></div><label class="switch"><input type="checkbox" data-dev="bedroom" aria-label="Bedroom light"><span></span></label></div>
-      <div class="row"><div class="name">Garage<div class="sub">Auto on when a car parks</div></div><label class="switch"><input type="checkbox" data-dev="garage_light" aria-label="Garage light"><span></span></label></div>
-      <div class="row"><div class="name">Outdoor<div class="sub">Auto on with motion</div></div><label class="switch"><input type="checkbox" data-dev="outdoor" aria-label="Outdoor light"><span></span></label></div>
+      <h2>Building lights</h2>
+      <div class="row"><div class="name">Living room<div class="sub">Left house</div></div><input type="range" class="dim" data-dim="living" min="5" max="100" step="5" value="100" aria-label="Living room brightness"><label class="switch"><input type="checkbox" data-dev="living" aria-label="Living room light"><span></span></label></div>
+      <div class="row"><div class="name">Bedroom<div class="sub">Right house</div></div><input type="range" class="dim" data-dim="bedroom" min="5" max="100" step="5" value="100" aria-label="Bedroom brightness"><label class="switch"><input type="checkbox" data-dev="bedroom" aria-label="Bedroom light"><span></span></label></div>
+      <div class="row"><div class="name">Garage<div class="sub">Middle back</div></div><input type="range" class="dim" data-dim="garage_light" min="5" max="100" step="5" value="100" aria-label="Garage brightness"><label class="switch"><input type="checkbox" data-dev="garage_light" aria-label="Garage light"><span></span></label></div>
+      <div class="row"><div class="name">Outdoor<div class="sub">Gate pillars</div></div><input type="range" class="dim" data-dim="outdoor" min="5" max="100" step="5" value="100" aria-label="Outdoor brightness"><label class="switch"><input type="checkbox" data-dev="outdoor" aria-label="Outdoor light"><span></span></label></div>
       <div class="btn-row"><button class="btn" data-cmd="all_lights:on">All on</button><button class="btn" data-cmd="all_lights:off">All off</button></div>
+      <p class="small muted" style="margin:10px 0 0">Manual: the <b>Lights</b> button on the model toggles all of them.</p>
     </div>
 
     <div class="card">
-      <h2>Gate &amp; garage</h2>
-      <div class="row"><div class="name">Main gate<div class="sub">Auto opens for a car, closes after</div></div><label class="switch"><input type="checkbox" data-dev="gate" aria-label="Main gate open"><span></span></label></div>
-      <div class="row"><div class="name">Garage door<div class="sub" id="sub-garage">–</div></div><label class="switch"><input type="checkbox" data-dev="garage_door" aria-label="Garage door open"><span></span></label></div>
-      <div class="btn-row"><button class="btn primary" data-cmd="gate:open">Open gate</button><button class="btn" data-cmd="gate:close">Close gate</button></div>
+      <h2>Gate</h2>
+      <div class="row"><div class="name">Main gate<div class="sub" id="sub-gate">Motor turns –</div></div><span class="tag" id="tag-gate">–</span></div>
+      <div class="bar big"><span id="gate-bar"></span></div>
+      <div class="btn-row"><button class="btn primary" data-cmd="gate:open">Open</button><button class="btn" data-cmd="gate:stop">Stop</button><button class="btn" data-cmd="gate:close">Close</button></div>
+      <p class="small muted" style="margin:10px 0 0">Manual: <b>Gate</b> button = open/close, hold it 1 s = stop.</p>
     </div>
 
     <div class="card">
-      <h2>Climate &amp; weather</h2>
-      <div class="row"><div class="name">Fan<div class="sub">Auto on above 30 °C</div></div><label class="switch"><input type="checkbox" data-dev="fan" aria-label="Fan"><span></span></label></div>
-      <div class="row"><div class="name">Clothesline rain cover<div class="sub">Auto closes when it rains</div></div><label class="switch"><input type="checkbox" data-dev="cover" aria-label="Rain cover closed"><span></span></label></div>
-      <div class="row"><div class="name">Automation<div class="sub">Sensors control the house</div></div><label class="switch"><input type="checkbox" data-dev="auto" aria-label="Automation"><span></span></label></div>
+      <h2>Fan</h2>
+      <div class="row"><div class="name">Speed<div class="sub" id="sub-fan">Off</div></div>
+        <div class="seg" id="fanSeg" role="group" aria-label="Fan speed">
+          <button data-cmd="fan:0">Off</button><button data-cmd="fan:1">1</button><button data-cmd="fan:2">2</button><button data-cmd="fan:3">3</button>
+        </div>
+      </div>
+      <div class="row"><div class="name">Breeze<div class="sub">Gently changes speed like wind</div></div><label class="switch"><input type="checkbox" id="fanBreeze" aria-label="Breeze mode"><span></span></label></div>
+      <div class="row"><div class="name">Off-timer<div class="sub" id="sub-fantimer">No timer</div></div>
+        <select id="fanTimer" aria-label="Fan off-timer"><option value="0">Off</option><option value="1">1 min</option><option value="5">5 min</option><option value="15">15 min</option><option value="30">30 min</option><option value="60">1 hour</option></select>
+      </div>
+      <p class="small muted" style="margin:10px 0 0">Manual: <b>Fan</b> button = next speed, hold = off.</p>
     </div>
 
     <div class="card">
-      <h2>Security</h2>
-      <div class="row"><div class="name">Security mode<div class="sub">Motion or door opening sounds the alarm</div></div><label class="switch"><input type="checkbox" data-dev="security" aria-label="Security mode"><span></span></label></div>
-      <div class="row"><div class="name">Alarm</div><span class="tag" id="tag-alarm">Quiet</span></div>
-      <div class="row"><div class="name">Front door</div><span class="tag" id="tag-door">–</span></div>
-      <div class="btn-row"><button class="btn" data-cmd="beep:2">Test buzzer</button></div>
+      <h2>RGB strip</h2>
+      <div class="row"><div class="name">Strip around the walls<div class="sub">Glows while the estate has power</div></div><label class="switch"><input type="checkbox" data-dev="strip" aria-label="RGB strip"><span></span></label></div>
+      <div class="swatches" id="swatches">
+        <button data-color="#00ff40" style="--c:#00ff40" aria-label="Green"></button>
+        <button data-color="#ffffff" style="--c:#ffffff" aria-label="White"></button>
+        <button data-color="#ff9a40" style="--c:#ff9a40" aria-label="Warm white"></button>
+        <button data-color="#ff0000" style="--c:#ff0000" aria-label="Red"></button>
+        <button data-color="#0030ff" style="--c:#0030ff" aria-label="Blue"></button>
+        <button data-color="#9000ff" style="--c:#9000ff" aria-label="Purple"></button>
+        <button data-color="#ff2080" style="--c:#ff2080" aria-label="Pink"></button>
+        <button data-color="#00ffff" style="--c:#00ffff" aria-label="Cyan"></button>
+        <label class="pick" aria-label="Any colour"><input type="color" id="stripPicker" value="#00ff60"></label>
+      </div>
+      <div class="seg" id="fxSeg" role="group" aria-label="Strip effect" style="margin-top:10px">
+        <button data-cmd="strip_effect:status">Steady</button><button data-cmd="strip_effect:breathe">Breathe</button><button data-cmd="strip_effect:rainbow">Rainbow</button><button data-cmd="strip_effect:party">Party</button>
+      </div>
+      <div class="range"><span class="small">Brightness</span><input type="range" id="stripBright" min="5" max="100" step="5" aria-label="Strip brightness"><b class="small" id="stripBrightVal">–</b></div>
+    </div>
+
+    <div class="card">
+      <h2>Speaker</h2>
+      <div class="range" style="margin-top:0"><span class="small">Volume</span><input type="range" id="volume" min="0" max="30" aria-label="Speaker volume"><b class="small" id="volumeVal">–</b></div>
+      <div class="row"><div class="name">Announcements<div class="sub">Says every change, e.g. “Gate opening”</div></div><label class="switch"><input type="checkbox" data-dev="announce" aria-label="Announcements"><span></span></label></div>
+      <div class="btn-row">
+        <button class="btn" data-cmd="say:hello">👋 Say hello</button>
+        <button class="btn" data-cmd="say:welcome">Welcome</button>
+        <button class="btn" data-cmd="beep:1">Beep</button>
+      </div>
     </div>
   </section>
 
-  <!-- ================= VOICE + DEMO + LOG ================= -->
+  <!-- ================= VOICE + LOG ================= -->
   <section class="grid">
     <div class="card wide" id="voiceCard">
       <h2>Voice control</h2>
@@ -196,26 +223,15 @@
         </div>
       </div>
       <form class="voice-input" id="textCmd">
-        <input id="textCmdInput" placeholder="…or type a command: turn on bedroom light" aria-label="Type a command">
+        <input id="textCmdInput" placeholder="…or type a command: fan speed 2" aria-label="Type a command">
         <button class="btn primary" type="submit">Send</button>
       </form>
       <ul class="phrases">
-        <li>Web voice: <code>turn on the living room light</code>, <code>open the garage</code>, <code>close the gate</code>, <code>arm security</code>, <code>what's the temperature</code>, <code>is it raining</code>, <code>all lights off</code></li>
-        <li>Alexa (after “Alexa, discover devices”): <code>Alexa, turn on Living Room Light</code>, <code>Alexa, turn on Gate</code> (opens), <code>Alexa, turn off Garage Door</code> (closes), <code>Alexa, turn on Rain Cover</code>, <code>Alexa, turn on Security</code></li>
+        <li>Lights: <code>turn on the living room light</code>, <code>dim the bedroom to 30 percent</code>, <code>all lights off</code></li>
+        <li>Gate &amp; fan: <code>open the gate</code>, <code>stop the gate</code>, <code>fan speed 3</code>, <code>fan breeze</code>, <code>turn off the fan in 10 minutes</code></li>
+        <li>Strip &amp; speaker: <code>strip red</code>, <code>rainbow</code>, <code>party mode</code>, <code>volume up</code>, <code>ring the doorbell</code>, <code>good night</code></li>
+        <li>Alexa (after “Alexa, discover devices”): <code>Alexa, turn on Gate</code>, <code>Alexa, set Fan to 100%</code>, <code>Alexa, set Strip Light to blue</code>, <code>Alexa, turn on Good Night</code></li>
       </ul>
-    </div>
-
-    <div class="card" id="demoPanel">
-      <h2>Simulator (no hardware needed)</h2>
-      <p class="small muted" style="margin:0">Fake the sensors to see the automation work, exactly like the ESP32 firmware does.</p>
-      <div class="btn-row">
-        <button class="btn" data-sim="raining">🌧 Rain</button>
-        <button class="btn" data-sim="motion">🚶 Motion</button>
-        <button class="btn" data-sim="car_gate">🚗 Car at gate</button>
-        <button class="btn" data-sim="car_garage">🅿 Car in garage</button>
-        <button class="btn" data-sim="door_open">🚪 Door</button>
-      </div>
-      <div class="range"><span class="small">Temp</span><input type="range" id="simTemp" min="15" max="40" step="0.5" value="26" aria-label="Simulated temperature"><b id="simTempVal" class="small">26 °C</b></div>
     </div>
 
     <div class="card">
@@ -224,12 +240,13 @@
     </div>
   </section>
 
-  <!-- ================= COMPONENTS ================= -->
+  <!-- ================= THE BUILD ================= -->
   <h2 class="section-title">The build</h2>
-  <p class="muted" style="margin:0">Photos of the model and the parts used.</p>
+  <p class="muted" style="margin:0">Photos of the model and the parts used. Full wiring blueprint: docs/BLUEPRINT.md.</p>
   <div class="gallery">
-    <figure><img src="img/estate-model.jpg" alt="Cardboard estate model with two houses, garage, driveway, gate and clotheslines" loading="lazy" onerror="this.parentElement.hidden=true"><figcaption>The estate: living-room house, bedroom house, garage, driveway, servo gate, clotheslines.</figcaption></figure>
-    <figure><img src="img/components-layout.jpg" alt="Electronic parts laid out on the grass base: breadboard, jumper wires, servo, sensors, buzzer, power adapter" loading="lazy" onerror="this.parentElement.hidden=true"><figcaption>Parts: ESP32, breadboard, jumpers, SG90 servos, DHT11, PIR, IR sensors, door reed switch, buzzer, LCD, buck converter, 12 V adapter.</figcaption></figure>
+    <figure><img src="img/estate-model.jpg" alt="Cardboard estate model with two houses, garage, driveway, gate and clotheslines" loading="lazy" onerror="this.parentElement.hidden=true"><figcaption>The estate: living-room house, bedroom house, garage (control box), driveway and the motor gate.</figcaption></figure>
+    <figure><img src="img/blueprint-layout.svg" alt="Top-down blueprint of the estate showing where each part goes and how the wires run" loading="lazy" onerror="this.parentElement.hidden=true"><figcaption>Blueprint: where every part goes and how the wires run to the garage.</figcaption></figure>
+    <figure><img src="img/blueprint-wiring.svg" alt="Simplified wiring diagram from the ESP32 to every part" loading="lazy" onerror="this.parentElement.hidden=true"><figcaption>Simplified wiring: power rails and one signal wire per part.</figcaption></figure>
   </div>
 
   <div class="card" style="margin-top:16px">
@@ -238,17 +255,13 @@
       <table>
         <thead><tr><th>Part</th><th>ESP32 pin</th><th>Job in the estate</th></tr></thead>
         <tbody>
-          <tr><td>DHT11 temp/humidity</td><td class="pin">GPIO 4</td><td>Room climate, auto fan</td></tr>
-          <tr><td>PIR motion (HC-SR501)</td><td class="pin">GPIO 27</td><td>Outdoor light + intruder alarm</td></tr>
-          <tr><td>Rain sensor DO / AO</td><td class="pin">GPIO 34 / 35</td><td>Closes clothesline cover</td></tr>
-          <tr><td>IR sensor – gate</td><td class="pin">GPIO 32</td><td>Car detection, auto gate</td></tr>
-          <tr><td>IR sensor – garage</td><td class="pin">GPIO 39</td><td>Car parked → garage light</td></tr>
-          <tr><td>Door reed switch</td><td class="pin">GPIO 33</td><td>Door open alarm</td></tr>
-          <tr><td>Servo – gate / garage / cover</td><td class="pin">GPIO 13 / 14 / 26</td><td>Moving parts</td></tr>
-          <tr><td>LEDs – living / bedroom / garage / outdoor</td><td class="pin">GPIO 16 / 17 / 18 / 19</td><td>Lights</td></tr>
-          <tr><td>Fan (via transistor)</td><td class="pin">GPIO 23</td><td>Cooling</td></tr>
-          <tr><td>Buzzer</td><td class="pin">GPIO 25</td><td>Alarm and beeps</td></tr>
-          <tr><td>16×2 I2C LCD</td><td class="pin">SDA 21 · SCL 22</td><td>Shows temp, status, IP</td></tr>
+          <tr><td>LEDs – living / bedroom / garage / outdoor</td><td class="pin">GPIO 16 / 17 / 18 / 19</td><td>Building lights (dimmable)</td></tr>
+          <tr><td>Gate stepper (ULN2003 IN1–IN4)</td><td class="pin">GPIO 13 / 14 / 27 / 26</td><td>Turns 1080° to open, back to close</td></tr>
+          <tr><td>Fan (via transistor)</td><td class="pin">GPIO 23</td><td>3 speeds + breeze</td></tr>
+          <tr><td>RGB strip R / G / B (MOSFETs)</td><td class="pin">GPIO 25 / 33 / 32</td><td>Power-on glow + effects</td></tr>
+          <tr><td>Speaker – DFPlayer Mini RX</td><td class="pin">GPIO 4</td><td>Spoken announcements</td></tr>
+          <tr><td>Buttons – Lights / Gate / Fan</td><td class="pin">GPIO 5 / 15 / 12</td><td>Manual control (button to GND)</td></tr>
+          <tr><td>BOOT button on the ESP32</td><td class="pin">GPIO 0</td><td>Next strip effect</td></tr>
         </tbody>
       </table>
     </div>

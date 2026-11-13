@@ -2,7 +2,7 @@ name: Compile ESP32 firmware
 
 on:
   push:
-    paths: ["firmware/**", "webapp/**", "tools/**", ".github/workflows/firmware.yml"]
+    paths: ["firmware/**", "webapp/**", "tools/build_webapp.py", ".github/workflows/firmware.yml"]
   pull_request:
   workflow_dispatch:
 
@@ -26,10 +26,8 @@ jobs:
           sketch-paths: |
             - firmware/smart_estate
           libraries: |
-            - name: ESP32Servo
-            - name: DHT sensor library
-            - name: Adafruit Unified Sensor
             - name: ArduinoJson
             - name: PubSubClient
-            - name: LiquidCrystal I2C
             - name: Espalexa
+            - name: Adafruit NeoPixel
+            - name: LiquidCrystal I2C
