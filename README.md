@@ -41,6 +41,7 @@ tools/build_webapp.py      packs /webapp into the end of smarthome.ino
 tools/make_voice_clips.py  makes the speaker clips (only if you want other words)
 INSTALL-WINDOWS.bat        one-click Windows installer (tools/windows/install-windows.ps1)
 docs/INSTALL.md            installation guide + troubleshooting
+docs/ACTIVATION_GUIDE.md   switch on the web app and each device, one by one, with tests
 docs/RUN_THE_APP.md        open the app: from the ESP32, online, demo
 docs/BLUEPRINT.md          layout blueprint, simplified wiring, pin table, build order
 docs/ALTERNATIVES.md       DC motor, servo, big/small speaker, LED power, real bulb, fan, strip
@@ -51,7 +52,7 @@ docs/ONLINE_AND_SIMULATOR.md   GitHub Pages, Wokwi, MQTT remote control
 
 ## Install
 
-📦 **Full step-by-step guide: [docs/INSTALL.md](docs/INSTALL.md)**
+📦 **Full step-by-step guide: [docs/INSTALL.md](docs/INSTALL.md)**  ·  ✅ **Switch on the app and every device one by one: [docs/ACTIVATION_GUIDE.md](docs/ACTIVATION_GUIDE.md)**
 
 **Windows, the quick way:** download the ZIP of branch `claude/wonderful-galileo-4p3xz7`, unzip it and double-click
 **`INSTALL-WINDOWS.bat`**. It copies the sketch to `Documents\Arduino\smarthome`, asks for your Wi-Fi, installs the

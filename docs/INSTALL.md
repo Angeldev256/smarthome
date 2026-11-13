@@ -87,6 +87,8 @@ Using other parts (servo, stepper, big speaker, relay bulb …)? See [ALTERNATIV
 
 ## 4. Wire the model (test each part as you go)
 
+The detailed version, one device at a time with what you should see: **[ACTIVATION_GUIDE.md](ACTIVATION_GUIDE.md)**.
+
 Follow **[BLUEPRINT.md](BLUEPRINT.md)** for the drawings and pin table. Short version:
 
 1. **Power first:** 12 V adapter → buck converter. Turn its screw until the meter shows **5.0 V** *before* connecting anything.
