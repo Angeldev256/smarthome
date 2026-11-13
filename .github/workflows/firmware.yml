@@ -1,0 +1,35 @@
+name: Compile ESP32 firmware
+
+on:
+  push:
+    paths: ["firmware/**", "webapp/**", "tools/**", ".github/workflows/firmware.yml"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check webapp.h is up to date
+        run: |
+          python3 tools/build_webapp.py
+          git diff --exit-code firmware/smart_estate/webapp.h || (echo "Run: python3 tools/build_webapp.py and commit webapp.h" && exit 1)
+
+      - uses: arduino/compile-sketches@v1
+        with:
+          fqbn: esp32:esp32:esp32
+          platforms: |
+            - name: esp32:esp32
+              source-url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
+          sketch-paths: |
+            - firmware/smart_estate
+          libraries: |
+            - name: ESP32Servo
+            - name: DHT sensor library
+            - name: Adafruit Unified Sensor
+            - name: ArduinoJson
+            - name: PubSubClient
+            - name: LiquidCrystal I2C
+            - name: Espalexa
