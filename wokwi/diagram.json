@@ -61,16 +61,6 @@
       }
     },
     {
-      "type": "wokwi-stepper-motor",
-      "id": "gate",
-      "top": 40,
-      "left": 260,
-      "attrs": {
-        "size": "17",
-        "display": "angle"
-      }
-    },
-    {
       "type": "wokwi-rgb-led",
       "id": "strip",
       "top": 250,
@@ -133,6 +123,26 @@
       "top": 120,
       "left": -260,
       "attrs": {}
+    },
+    {
+      "type": "wokwi-led",
+      "id": "motorOpen",
+      "top": 40,
+      "left": 280,
+      "attrs": {
+        "color": "green",
+        "label": "Motor OPEN (IN1)"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "motorClose",
+      "top": 40,
+      "left": 360,
+      "attrs": {
+        "color": "red",
+        "label": "Motor CLOSE (IN2)"
+      }
     }
   ],
   "connections": [
@@ -206,30 +216,6 @@
       "ledFan:C",
       "esp:GND.3",
       "black",
-      []
-    ],
-    [
-      "gate:A+",
-      "esp:13",
-      "orange",
-      []
-    ],
-    [
-      "gate:B+",
-      "esp:14",
-      "orange",
-      []
-    ],
-    [
-      "gate:A-",
-      "esp:27",
-      "orange",
-      []
-    ],
-    [
-      "gate:B-",
-      "esp:26",
-      "orange",
       []
     ],
     [
@@ -356,6 +342,30 @@
       "pir:OUT",
       "esp:VP",
       "violet",
+      []
+    ],
+    [
+      "motorOpen:A",
+      "esp:13",
+      "green",
+      []
+    ],
+    [
+      "motorOpen:C",
+      "esp:GND.2",
+      "black",
+      []
+    ],
+    [
+      "motorClose:A",
+      "esp:14",
+      "red",
+      []
+    ],
+    [
+      "motorClose:C",
+      "esp:GND.2",
+      "black",
       []
     ]
   ],

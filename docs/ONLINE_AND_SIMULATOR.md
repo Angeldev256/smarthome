@@ -31,12 +31,12 @@ You can also just open `webapp/index.html` on your PC by double-clicking it.
    * `libraries.txt` ← `wokwi/libraries.txt`
 5. Press ▶ **Start**. In the simulator:
    * press the **Lights**, **Gate** and **Fan** buttons (hold one for 1 s for its second job)
-   * watch the stepper turn 1080° when the gate opens, and the RGB LED show the strip colour
+   * the gate's DC motor is shown by two LEDs: **green = motor opening (IN1)**, **red = motor closing (IN2)**. The RGB LED shows the strip colour
    * the blue **Fan** LED gets brighter with each fan speed
    * click an **HC-SR04** and drag its distance below 12 cm: a "car" at the gate opens it; below 15 cm in the garage = parked
    * click the **PIR** to make motion (wait 30 s after start). Type `security on` first and the RGB LED flashes red: that's the alarm
    * type `gate open`, `living 50`, `fan 3`, `strip red`, `scene party` or `state` in the Serial Monitor
-6. **Control the simulated ESP32 from the web app:** change `HOME_ID` in `secrets.h` to something unique, then in the web app open ⚙ → **Online** and type the same Home ID. The pill turns green ("Online") and every switch moves the virtual motor and LEDs.
+6. **Control the simulated ESP32 from the web app:** change `HOME_ID` in `secrets.h` to something unique, then in the web app open ⚙ → **Online** and type the same Home ID. The pill turns green ("Online") and every switch lights the virtual LEDs.
 
 > Alexa is turned off in the simulator because Alexa can't discover a virtual device. Wokwi has no DFPlayer, so the speaker stays quiet there.
 
