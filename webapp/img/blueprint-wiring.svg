@@ -15,9 +15,9 @@
 <text x="425.0" y="185" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="middle" >set to 5.0 V first!</text>
 <path d="M210 165 L330 165" fill="none" stroke="#ff5c5c" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
 <path d="M250 165 L250 142 L1340 142" fill="none" stroke="#ff5c5c" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="1340" y="136" font-size="12" fill="#ff5c5c" font-weight="700" text-anchor="end" >12 V rail → RGB strip only</text>
+<text x="1340" y="136" font-size="12" fill="#ff5c5c" font-weight="700" text-anchor="end" >12 V rail → RGB strip + L298N motor power</text>
 <path d="M520 170 L1340 170" fill="none" stroke="#ffa94d" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="1340" y="164" font-size="12" fill="#ffa94d" font-weight="700" text-anchor="end" >5 V rail → ESP32 VIN, ULN2003, DFPlayer, fan</text>
+<text x="1340" y="164" font-size="12" fill="#ffa94d" font-weight="700" text-anchor="end" >5 V rail → ESP32 VIN, DFPlayer, fan, sensors</text>
 <path d="M210 195 L330 195" fill="none" stroke="#111111" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
 <path d="M520 195 L560 195" fill="none" stroke="#111111" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
 <path d="M250 195 L250 218 L1340 218" fill="none" stroke="#111111" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
@@ -50,10 +50,8 @@
 <text x="238" y="565" font-size="13" fill="#ffffff" font-weight="600" text-anchor="end" >GPIO 13</text>
 <circle cx="250" cy="590" r="5" fill="#ffffff"/>
 <text x="238" y="595" font-size="13" fill="#ffffff" font-weight="600" text-anchor="end" >GPIO 14</text>
-<circle cx="250" cy="620" r="5" fill="#ffffff"/>
-<text x="238" y="625" font-size="13" fill="#ffffff" font-weight="600" text-anchor="end" >GPIO 27</text>
-<circle cx="250" cy="650" r="5" fill="#ffffff"/>
-<text x="238" y="655" font-size="13" fill="#ffffff" font-weight="600" text-anchor="end" >GPIO 26</text>
+<circle cx="250" cy="630" r="5" fill="#ffffff"/>
+<text x="238" y="635" font-size="13" fill="#ffffff" font-weight="600" text-anchor="end" >GPIO 27</text>
 <circle cx="250" cy="770" r="5" fill="#ffffff"/>
 <text x="238" y="775" font-size="13" fill="#ffffff" font-weight="600" text-anchor="end" >GPIO 23</text>
 <circle cx="250" cy="850" r="5" fill="#ffffff"/>
@@ -129,36 +127,39 @@
 <text x="840" y="378" font-size="12" fill="#cfe2ff" font-weight="400" text-anchor="start" >each with its own resistor.</text>
 <text x="840" y="400" font-size="12" fill="#cfe2ff" font-weight="400" text-anchor="start" >White / blue LEDs: use 100 Ω.</text>
 <text x="840" y="422" font-size="12" fill="#cfe2ff" font-weight="400" text-anchor="start" >LED long leg (+) → resistor side.</text>
-<text x="300" y="534" font-size="13" fill="#ff9f6b" font-weight="700" text-anchor="start" >2 · GATE MOTOR (1080°)</text>
+<text x="300" y="534" font-size="13" fill="#ff9f6b" font-weight="700" text-anchor="start" >2 · GATE MOTOR (DC motor + L298N)</text>
 <rect x="420" y="536" width="170" height="132" rx="6" fill="#0f2f57" stroke="#ff9f6b" stroke-width="2"/>
-<text x="505.0" y="556" font-size="14" fill="#ffffff" font-weight="700" text-anchor="middle" >ULN2003 board</text>
+<text x="505.0" y="556" font-size="14" fill="#ffffff" font-weight="700" text-anchor="middle" >L298N</text>
 <path d="M250 560 L420 560" fill="none" stroke="#ff9f6b" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
 <text x="430" y="564" font-size="12" fill="#cfe2ff" font-weight="600" text-anchor="start" >IN1</text>
 <path d="M250 590 L420 590" fill="none" stroke="#ff9f6b" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
 <text x="430" y="594" font-size="12" fill="#cfe2ff" font-weight="600" text-anchor="start" >IN2</text>
-<path d="M250 620 L420 620" fill="none" stroke="#ff9f6b" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="430" y="624" font-size="12" fill="#cfe2ff" font-weight="600" text-anchor="start" >IN3</text>
-<path d="M250 650 L420 650" fill="none" stroke="#ff9f6b" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="430" y="654" font-size="12" fill="#cfe2ff" font-weight="600" text-anchor="start" >IN4</text>
-<path d="M590 575 L620 575" fill="none" stroke="#ffa94d" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="620" y="564" width="46" height="22" rx="11" fill="#ffa94d" stroke="#ffffff" stroke-width="1.5"/>
-<text x="643.0" y="580" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle" >5V</text>
-<path d="M590 625 L620 625" fill="none" stroke="#111111" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
-<rect x="620" y="614" width="46" height="22" rx="11" fill="#111111" stroke="#ffffff" stroke-width="1.5"/>
-<text x="643.0" y="630" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle" >GND</text>
-<text x="580" y="571" font-size="13" fill="#ffffff" font-weight="700" text-anchor="end" >+</text>
-<text x="580" y="629" font-size="13" fill="#ffffff" font-weight="700" text-anchor="end" >−</text>
-<rect x="480" y="668" width="50" height="8" fill="#ffffff"/>
-<path d="M505 676 L505 688 L750 688 L750 632" fill="none" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
-<circle cx="750" cy="600" r="32" fill="#0f2f57" stroke="#ff9f6b" stroke-width="3"/>
-<text x="750" y="597" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle" >28BYJ-48</text>
-<text x="750" y="612" font-size="11" fill="#cfe2ff" font-weight="400" text-anchor="middle" >motor</text>
-<text x="762" y="702" font-size="11.5" fill="#cfe2ff" font-weight="400" text-anchor="start" >motor's own 5-wire plug</text>
-<text x="840" y="570" font-size="12" fill="#ffffff" font-weight="600" text-anchor="start" >GATE_TURN_DEGREES = 1080 in smarthome.ino</text>
-<text x="840" y="588" font-size="12" fill="#cfe2ff" font-weight="400" text-anchor="start" >(any number: 360, 720, 1440 …).</text>
-<text x="840" y="606" font-size="12" fill="#cfe2ff" font-weight="400" text-anchor="start" >Opens the wrong way? GATE_REVERSE = 1.</text>
-<text x="840" y="624" font-size="12" fill="#cfe2ff" font-weight="400" text-anchor="start" >DC gear motor instead? L298N / L9110S</text>
-<text x="840" y="642" font-size="12" fill="#cfe2ff" font-weight="400" text-anchor="start" >on GPIO 13 + 14, GATE_MOTOR = GATE_DC.</text>
+<path d="M250 630 L420 630" fill="none" stroke="#ff9f6b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="6 5"/>
+<text x="430" y="634" font-size="12" fill="#cfe2ff" font-weight="600" text-anchor="start" >ENA</text>
+<text x="412" y="624" font-size="10" fill="#cfe2ff" font-weight="400" text-anchor="end" >optional</text>
+<text x="582" y="571" font-size="11.5" fill="#ffffff" font-weight="700" text-anchor="end" >+12V</text>
+<path d="M590 567 L620 567" fill="none" stroke="#ff5c5c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="620" y="556" width="50" height="22" rx="11" fill="#ff5c5c" stroke="#ffffff" stroke-width="1.5"/>
+<text x="645.0" y="572" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle" >12V</text>
+<text x="582" y="605" font-size="11.5" fill="#ffffff" font-weight="700" text-anchor="end" >GND</text>
+<path d="M590 601 L620 601" fill="none" stroke="#111111" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="620" y="590" width="46" height="22" rx="11" fill="#111111" stroke="#ffffff" stroke-width="1.5"/>
+<text x="643.0" y="606" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle" >GND</text>
+<text x="582" y="639" font-size="11.5" fill="#cfe2ff" font-weight="600" text-anchor="end" >+5V</text>
+<text x="600" y="643" font-size="10.5" fill="#cfe2ff" font-weight="400" text-anchor="start" >leave empty</text>
+<rect x="470" y="668" width="70" height="10" fill="#ffffff"/>
+<text x="548" y="677" font-size="10.5" fill="#cfe2ff" font-weight="600" text-anchor="start" >OUT1 · OUT2</text>
+<path d="M480 678 L480 692 L760 692 L760 618" fill="none" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M530 678 L530 684 L700 684 L700 618" fill="none" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="730" cy="600" r="34" fill="#0f2f57" stroke="#ff9f6b" stroke-width="3"/>
+<text x="730" y="597" font-size="11.5" fill="#ffffff" font-weight="700" text-anchor="middle" >DC gear</text>
+<text x="730" y="612" font-size="11" fill="#cfe2ff" font-weight="400" text-anchor="middle" >motor</text>
+<text x="840" y="562" font-size="12" fill="#ffffff" font-weight="600" text-anchor="start" >GATE_MOTOR GATE_DC (already set).</text>
+<text x="840" y="580" font-size="12" fill="#cfe2ff" font-weight="400" text-anchor="start" >GATE_DC_RUN_MS = time to open, e.g. 4000.</text>
+<text x="840" y="598" font-size="12" fill="#cfe2ff" font-weight="400" text-anchor="start" >ENA jumper ON = full speed (simplest).</text>
+<text x="840" y="616" font-size="12" fill="#cfe2ff" font-weight="400" text-anchor="start" >Jumper off + ENA → GPIO 27: soft start, speed.</text>
+<text x="840" y="634" font-size="12" fill="#cfe2ff" font-weight="400" text-anchor="start" >Wrong way? swap OUT1/OUT2 or GATE_REVERSE 1.</text>
+<text x="840" y="652" font-size="12" fill="#cfe2ff" font-weight="400" text-anchor="start" >12V terminal: motor supply (6–12 V motor).</text>
 <text x="300" y="750" font-size="13" fill="#7ee0ff" font-weight="700" text-anchor="start" >3 · FAN</text>
 <path d="M250 770 L380 770" fill="none" stroke="#7ee0ff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
 <rect x="380" y="763" width="40" height="14" rx="2" fill="#0f2f57" stroke="#ffffff" stroke-width="2"/>
@@ -336,7 +337,7 @@
 <rect x="1110" y="270" width="250" height="318" rx="8" fill="#0f2f57" stroke="#ffffff" stroke-width="1.5"/>
 <text x="1126" y="298" font-size="15" fill="#ffffff" font-weight="700" text-anchor="start" >SMALL PARTS</text>
 <text x="1124" y="326" font-size="12.5" fill="#ffffff" font-weight="400" text-anchor="start" >• 8–10 LEDs + 220 Ω / 100 Ω</text>
-<text x="1124" y="347" font-size="12.5" fill="#ffffff" font-weight="400" text-anchor="start" >• 1 × ULN2003 + 28BYJ-48</text>
+<text x="1124" y="347" font-size="12.5" fill="#ffffff" font-weight="400" text-anchor="start" >• 1 × L298N + DC gear motor</text>
 <text x="1124" y="368" font-size="12.5" fill="#ffffff" font-weight="400" text-anchor="start" >• 1 × NPN 2N2222 or S8050</text>
 <text x="1124" y="389" font-size="12.5" fill="#ffffff" font-weight="400" text-anchor="start" >• 1 × 470 Ω, 1 × 1N4007</text>
 <text x="1124" y="410" font-size="12.5" fill="#ffffff" font-weight="400" text-anchor="start" >• 3 × IRLZ44N + 3 × 100 Ω</text>

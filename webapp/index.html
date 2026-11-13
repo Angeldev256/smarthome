@@ -183,7 +183,7 @@
 
     <div class="card">
       <h2>Gate</h2>
-      <div class="row"><div class="name">Main gate<div class="sub" id="sub-gate">Motor turns –</div></div><span class="tag" id="tag-gate">–</span></div>
+      <div class="row"><div class="name">Main gate<div class="sub" id="sub-gate">DC motor + L298N</div></div><span class="tag" id="tag-gate">–</span></div>
       <div class="bar big"><span id="gate-bar"></span></div>
       <div class="btn-row"><button class="btn primary" data-cmd="gate:open">Open</button><button class="btn" data-cmd="gate:stop">Stop</button><button class="btn" data-cmd="gate:close">Close</button></div>
       <p class="small muted" style="margin:10px 0 0">Manual: <b>Gate</b> button = open/close, hold it 1 s = stop.</p>
@@ -304,7 +304,7 @@
         <thead><tr><th>Part</th><th>ESP32 pin</th><th>Job in the estate</th></tr></thead>
         <tbody>
           <tr><td>LEDs – living / bedroom / garage / outdoor</td><td class="pin">GPIO 16 / 17 / 18 / 19</td><td>Building lights (dimmable)</td></tr>
-          <tr><td>Gate stepper (ULN2003 IN1–IN4)</td><td class="pin">GPIO 13 / 14 / 27 / 26</td><td>Turns 1080° to open, back to close</td></tr>
+          <tr><td>Gate DC motor (L298N IN1 / IN2)</td><td class="pin">GPIO 13 / 14</td><td>Runs to open, back to close (ENA → GPIO 27 optional)</td></tr>
           <tr><td>Fan (via transistor)</td><td class="pin">GPIO 23</td><td>3 speeds + breeze</td></tr>
           <tr><td>RGB strip R / G / B (MOSFETs)</td><td class="pin">GPIO 25 / 33 / 32</td><td>Power-on glow + effects</td></tr>
           <tr><td>Speaker – DFPlayer Mini RX</td><td class="pin">GPIO 4</td><td>Spoken announcements</td></tr>

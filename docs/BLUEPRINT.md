@@ -11,7 +11,7 @@ All settings and pins are at the top of **`firmware/smarthome/smarthome.ino`** (
 
 *(Vector version for printing: [blueprint-layout.svg](blueprint/blueprint-layout.svg))*
 
-**The big idea: the garage is the control hub.** The ESP32, breadboard, buck converter, ULN2003 board,
+**The big idea: the garage is the control hub.** The ESP32, breadboard, buck converter, L298N board,
 DFPlayer, transistors and the garage ultrasonic sensor all sit inside the garage box in the middle.
 The buttons go on the garage front, next to the driveway. Only five small cables leave the garage:
 
@@ -19,7 +19,7 @@ The buttons go on the garage front, next to the driveway. Only five small cables
 |---|---|---|
 | **A** | Left house | 4 wires: living-room LED signal, fan +, fan −, GND |
 | **B** | Right house | 2 wires: bedroom LED signal, GND |
-| **C** | Gate | 6 wires: gate-pillar LEDs, PIR OUT, ultrasonic TRIG, ultrasonic ECHO, 5V, GND + the motor's own plug |
+| **C** | Gate | 8 wires: gate-pillar LEDs, PIR OUT, ultrasonic TRIG, ultrasonic ECHO, 5V, GND + the 2 motor wires from OUT1/OUT2 |
 | **D** | RGB strip | 4 wires: +12 V, R, G, B |
 | **E** | 12 V adapter | 2 wires into the hub |
 
@@ -42,7 +42,7 @@ How to read it: each part gets **one signal wire** from the ESP32. A coloured fl
 | Bedroom LEDs (L2) | **GPIO 17** → 220 Ω → LED + | LED − → GND |
 | Garage LED (L3) | **GPIO 18** → 220 Ω → LED + | LED − → GND |
 | Gate-pillar LEDs (L4) | **GPIO 19** → 220 Ω → LED + | LED − → GND |
-| Gate stepper (ULN2003) | **GPIO 13 / 14 / 27 / 26** → IN1 / IN2 / IN3 / IN4 | board + → 5V, − → GND, motor plug into the board |
+| Gate DC motor (L298N) | **GPIO 13** → IN1, **GPIO 14** → IN2 (optional: ENA → **GPIO 27**) | +12V → 12 V, GND → GND, OUT1 + OUT2 → motor, ENA jumper on |
 | Fan | **GPIO 23** → 470 Ω → NPN base | fan between 5V and collector, emitter → GND, 1N4007 across the fan |
 | RGB strip red / green / blue | **GPIO 25 / 33 / 32** → 100 Ω → MOSFET gate | drains → strip R / G / B, sources → GND, strip + → 12 V |
 | Speaker (DFPlayer Mini) | **GPIO 4** → 1 kΩ → DFPlayer **RX** | VCC → 5V, GND → GND, speaker on SPK1 + SPK2 |
@@ -57,10 +57,10 @@ How to read it: each part gets **one signal wire** from the ESP32. A coloured fl
 ### Power
 
 ```
-12 V adapter ─┬─────────────────────────────► RGB strip +12 V
+12 V adapter ─┬─────────────────────────────► RGB strip +12 V, L298N +12V (motor power)
               └─► buck converter IN
                   buck converter OUT (set to 5.0 V with a meter BEFORE connecting!)
-                        └─► 5 V rail ─► ESP32 VIN, ULN2003 +, DFPlayer VCC, fan, HC-SR04 ×2, PIR
+                        └─► 5 V rail ─► ESP32 VIN, DFPlayer VCC, fan, HC-SR04 ×2, PIR
 GND: adapter −, buck −, ESP32 GND and every part's GND all joined on one rail
 ```
 
@@ -76,18 +76,25 @@ GND: adapter −, buck −, ESP32 GND and every part's GND all joined on one rai
 * More LEDs per room, or a **real bulb**? See [ALTERNATIVES.md](ALTERNATIVES.md#3-power-for-the-small-leds).
 * They dim smoothly: "dim the bedroom to 30 percent", or the sliders in the app.
 
-### Gate motor: turns 1080°
-* Motor: **28BYJ-48** stepper with its **ULN2003** board. It turns an exact angle.
-* Open = turn `GATE_TURN_DEGREES` (default **1080° = 3 full turns**). Close = turn the same amount back.
+### Gate motor: DC motor + L298N
+* The L298N sits in the garage hub. **IN1 ← GPIO 13, IN2 ← GPIO 14.** Leave the **ENA jumper on** (full speed).
+* **+12V** terminal → 12 V adapter (use the motor's voltage: 6–12 V), **GND** → GND rail (must be shared with the ESP32!).
+  Leave the L298N's **+5V** terminal empty, the buck converter powers the ESP32.
+* **OUT1 + OUT2** → the two motor wires (cable C, under the driveway to the gate).
+* The motor runs for `GATE_DC_RUN_MS` to open, and the same time back to close:
   ```cpp
-  #define GATE_TURN_DEGREES  1080   // 360 = 1 turn, 720 = 2 turns, 1440 = 4 turns ...
-  #define GATE_SPEED_RPM     12     // 5 = slow and strong, 15 = fast
-  #define GATE_REVERSE       0      // 1 if it opens the wrong way
-  #define GATE_AUTO_CLOSE_S  0      // e.g. 20 = close by itself after 20 s
+  #define GATE_MOTOR          GATE_DC   // already set
+  #define GATE_DC_RUN_MS      4000      // measure: how long until your gate is fully open
+  #define GATE_REVERSE        0         // 1 if it opens the wrong way (or swap OUT1/OUT2)
+  #define GATE_AUTO_CLOSE_S   0         // e.g. 20 = close by itself after 20 s
+  #define PIN_GATE_ENA        -1        // 27 = jumper off + ENA wired: soft start
+  #define GATE_DC_SPEED       80        // % speed when ENA is wired
   ```
-* Fixing it to the gate: wind a thread on a small **spool** on the shaft (3 turns pull the gate open),
-  or glue the gate leaf straight to the shaft and set the angle to 90.
-* **DC motor or servo instead?** See [ALTERNATIVES.md](ALTERNATIVES.md#1-gate-motor).
+* **Finding the right time:** type `gate open` in the Serial Monitor and count how long it takes to open fully.
+  Too long and the motor pushes at the end; too short and it stops early. For a perfect stop add the two optional
+  end switches (see [ALTERNATIVES.md](ALTERNATIVES.md#1-gate-motor)).
+* Fixing it to the gate: a gear motor with a crank arm or a spool + thread works well on a cardboard leaf.
+* **Stepper (exact 1080°) or servo instead?** See [ALTERNATIVES.md](ALTERNATIVES.md#1-gate-motor).
 
 ### Fan (no sensor needed)
 * Small DC motor fan, switched by an **NPN transistor** (2N2222 or S8050, base through 470 Ω).
@@ -138,7 +145,7 @@ GND: adapter −, buck −, ESP32 GND and every part's GND all joined on one rai
 2. ESP32 on the breadboard, upload `smarthome.ino`, open the Serial Monitor (115200).
 3. LEDs → type `living on`, `bedroom 30`.
 4. Buttons → press them.
-5. ULN2003 + motor → `gate open`. Change `GATE_TURN_DEGREES` if needed.
+5. L298N + DC motor → `gate open`, `gate stop`, `gate close`. Adjust `GATE_DC_RUN_MS`.
 6. Fan → `fan 1`, `fan 3`, `fan breeze`.
 7. RGB strip → `strip red`, `strip rainbow`.
 8. DFPlayer + SD card → `say hello`.

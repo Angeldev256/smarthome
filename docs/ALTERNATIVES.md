@@ -13,8 +13,8 @@ at the top of the file, and wire it as shown.
 
 | Option | Change in PART 1 | Wiring | Good for |
 |---|---|---|---|
-| **A. Stepper 28BYJ-48 + ULN2003** *(default)* | `#define GATE_MOTOR GATE_STEPPER` | GPIO 13/14/27/26 → IN1–IN4, board + → 5V, − → GND | Exact angle: **1080°** or any number in `GATE_TURN_DEGREES` |
-| **B. DC motor + L298N** | `#define GATE_MOTOR GATE_DC` | GPIO 13 → IN1, GPIO 14 → IN2, OUT1/OUT2 → motor, 12V (or 5V) + GND, **ENA jumper on** | Strong gear motors, 6–12 V |
+| **A. Stepper 28BYJ-48 + ULN2003** | `#define GATE_MOTOR GATE_STEPPER` | GPIO 13/14/27/26 → IN1–IN4, board + → 5V, − → GND | Exact angle: **1080°** or any number in `GATE_TURN_DEGREES` |
+| **B. DC motor + L298N** *(yours, default)* | `#define GATE_MOTOR GATE_DC` | GPIO 13 → IN1, GPIO 14 → IN2, OUT1/OUT2 → motor, 12V (or 5V) + GND, **ENA jumper on** | Strong gear motors, 6–12 V |
 | **C. DC motor + L9110S** | `#define GATE_MOTOR GATE_DC` | GPIO 13 → A-IA, GPIO 14 → A-IB, MOTOR A → motor, VCC 5V, GND | Small yellow "TT" gear motors, 3–6 V |
 | L293D / TB6612FNG | `#define GATE_MOTOR GATE_DC` | same as L298N (IN1, IN2). TB6612: also STBY and PWMA → 3V3 | |
 | **D. DC motor + 2 relays** | `GATE_DC` and `#define GATE_DC_ACTIVE_LOW 1` | GPIO 13 → relay 1 IN, GPIO 14 → relay 2 IN. Motor wires on COM1 and COM2. Both NC → GND, both NO → motor supply + | When you only have relays |

@@ -12,9 +12,11 @@ There are three "online" options. Use whichever fits your situation.
 
 ## A. Publish the web app (GitHub Pages)
 
-1. On GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-2. Merge this work into `main` (or run the *Publish web app to GitHub Pages* workflow by hand from the **Actions** tab).
-3. Your app is at `https://<your-github-username>.github.io/smarthome/`.
+Step by step: **[RUN_THE_APP.md](RUN_THE_APP.md)**. In short:
+
+1. Make `claude/wonderful-galileo-4p3xz7` the default branch (**Settings → General**).
+2. **Settings → Pages → Source: GitHub Actions**, then **Actions → Publish web app to GitHub Pages → Run workflow**.
+3. Your app is at `https://angeldev256.github.io/smarthome/`.
 4. It opens in **Demo** mode. Use the gear icon to switch to **Online** mode.
 
 You can also just open `webapp/index.html` on your PC by double-clicking it.

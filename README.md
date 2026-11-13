@@ -11,7 +11,7 @@ two houses, a garage, a driveway and a motor-driven gate.
 | Part | What it does | Control it with |
 |---|---|---|
 | 💡 **Building lights** | LEDs in the living room, bedroom, garage and on the gate pillars. Dimmable | App, voice, Alexa, Lights button |
-| 🚪 **Gate motor** | Stepper turns **1080°** (3 turns) to open, back to close. Pick any angle in `smarthome.ino` | App, voice, Alexa, Gate button |
+| 🚪 **Gate motor** | DC gear motor on an **L298N**: runs to open, back to close, stops on command. (A stepper turning exactly 1080° or a servo also work) | App, voice, Alexa, Gate button |
 | 🌀 **Fan** | 3 speeds, breeze mode, off-timer. No sensor needed | App, voice, Alexa, Fan button |
 | 🌈 **RGB strip** | Glows around the walls as soon as the estate has power, shows what's happening, any colour, effects | App, voice, Alexa, BOOT button |
 | 🔊 **Speaker** | Says every change out loud in real time: "Gate opening", "Fan speed two", "Welcome home!" | Automatic, volume by app or voice |
@@ -32,7 +32,7 @@ two houses, a garage, a driveway and a motor-driven gate.
 ```
 firmware/smarthome/
   smarthome.ino            THE WHOLE FIRMWARE IN ONE FILE
-                           PART 1 = your settings (Wi-Fi, pins, 1080°, options)
+                           PART 1 = your settings (Wi-Fi, pins, gate time, options)
                            PART 2 = the program, PART 3 = the web page (generated)
 webapp/                    the web app (index.html, style.css, app.js, pictures)
 sdcard/mp3/                the speaker's voice clips – copy to the DFPlayer's micro-SD card
@@ -68,7 +68,8 @@ docs/ONLINE_AND_SIMULATOR.md   GitHub Pages, Wokwi, MQTT remote control
 9. Say **"Alexa, discover devices"**.
 
 Wire it up first using **[docs/BLUEPRINT.md](docs/BLUEPRINT.md)**. To change how far the gate turns, edit
-`GATE_TURN_DEGREES` in PART 1 of `smarthome.ino` (1080 = three turns).
+`GATE_DC_RUN_MS` in PART 1 of `smarthome.ino` (how many milliseconds the DC motor needs to open the gate).
+**Run the app live (phone, laptop, anywhere): [docs/RUN_THE_APP.md](docs/RUN_THE_APP.md).**
 Using a DC motor, a servo, a big speaker or a real bulb instead? See **[docs/ALTERNATIVES.md](docs/ALTERNATIVES.md)**.
 
 ## The web app
@@ -100,6 +101,6 @@ The full list is in [docs/ALEXA_AND_VOICE.md](docs/ALEXA_AND_VOICE.md). The same
 
 ![Components](docs/images/components-layout.jpg)
 
-ESP32 · breadboard + rainbow jumper ribbon · LEDs + resistors · 28BYJ-48 stepper + ULN2003 board (gate) ·
+ESP32 · breadboard + rainbow jumper ribbon · LEDs + resistors · DC gear motor + L298N driver (gate) ·
 small DC fan + NPN transistor + 1N4007 · 4-wire 12 V RGB strip + 3 MOSFETs · DFPlayer Mini + speaker + micro-SD ·
 2 × HC-SR04 ultrasonic + 1 kΩ/2 kΩ dividers · PIR HC-SR501 · 3 push buttons · buck converter · 12 V 2 A adapter.

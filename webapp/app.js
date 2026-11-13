@@ -70,7 +70,7 @@
     tg.textContent = gs + (moving ? ` ${pos}%` : '');
     tg.className = 'tag' + (gs === 'open' ? ' on' : '');
     const f = s.features || {};
-    $('#sub-gate').textContent = f.gate_motor === 'dc' ? 'DC motor, timed run' : `Motor turns ${f.gate_degrees ?? 1080}° to open`;
+    $('#sub-gate').textContent = f.gate_motor === 'dc' ? `DC motor + L298N · runs ${((f.gate_run_ms ?? 4000) / 1000).toFixed(1)} s` : f.gate_motor === 'servo' ? `Servo swings ${f.gate_degrees ?? 90}°` : `Stepper turns ${f.gate_degrees ?? 1080}° to open`;
 
     // fan
     const sp = s.fan_speed ?? (s.fan ? 2 : 0);
@@ -284,7 +284,7 @@
       volume: 22, announce: true, event: 'Demo estate ready',
       motion: false, security: false, alarm: false, auto: true,
       car_gate: false, gate_cm: -1, car_garage: false, garage_cm: -1,
-      features: { speaker: 'voice', strip: true, gate_motor: 'stepper', gate_degrees: 1080, pir: true, sonar_gate: true, sonar_garage: true, alexa: true }
+      features: { speaker: 'voice', strip: true, gate_motor: 'dc', gate_run_ms: 4000, gate_degrees: 0, pir: true, sonar_gate: true, sonar_garage: true, alexa: true }
     };
     const last = { living: 100, bedroom: 100, garage_light: 100, outdoor: 100 };
     const NAMES = { living: 'Living room light', bedroom: 'Bedroom light', garage_light: 'Garage light', outdoor: 'Outdoor light' };
@@ -469,9 +469,9 @@
         S.car_garage = false; ev('Garage is empty');
         if (garageByCar) { setLight('garage_light', 0); garageByCar = false; }
       }
-      // the gate takes ~12 s, like the stepper turning 1080° at 12 rpm
+      // the DC motor runs 4 s to open (GATE_DC_RUN_MS)
       if (gatePos !== gateTarget) {
-        const step = dt / 120;
+        const step = dt / 40;
         gatePos = gateTarget > gatePos ? Math.min(gateTarget, gatePos + step) : Math.max(gateTarget, gatePos - step);
         if (gatePos === gateTarget && (gateTarget === 0 || gateTarget === 100)) ev(gateTarget ? 'Gate OPEN' : 'Gate CLOSED');
       }

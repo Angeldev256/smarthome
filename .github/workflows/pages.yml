@@ -2,7 +2,7 @@ name: Publish web app to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, claude/wonderful-galileo-4p3xz7]
     paths: ["webapp/**", ".github/workflows/pages.yml"]
   workflow_dispatch:
 
